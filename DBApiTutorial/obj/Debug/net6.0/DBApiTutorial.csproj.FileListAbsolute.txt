@@ -1,0 +1,7 @@
+C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\obj\Debug\net6.0\DBApiTutorial.csproj.AssemblyReference.cache
+C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\obj\Debug\net6.0\DBApiTutorial.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\obj\Debug\net6.0\DBApiTutorial.AssemblyInfoInputs.cache
+C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\obj\Debug\net6.0\DBApiTutorial.AssemblyInfo.cs
+C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\obj\Debug\net6.0\DBApiTutorial.csproj.CoreCompileInputs.cache
+C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\obj\Debug\net6.0\DBApiTutorial.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\obj\Debug\net6.0\DBApiTutorial.MvcApplicationPartsAssemblyInfo.cache
