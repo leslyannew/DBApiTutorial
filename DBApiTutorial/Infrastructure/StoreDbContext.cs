@@ -1,4 +1,4 @@
-﻿using DBApiTutorial.Domain.Entities;
+﻿using DBApiTutorial.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DBApiTutorial.Infrastructure
