@@ -1,3 +1,4 @@
+using DBApiTutorial.GamePublisher;
 using DBApiTutorial.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,9 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//ADD CONNECTION STRING!!!!
-//builder.Services.AddDbContext <StoreDbContext> (options =>
-    //options.UseSqlServer(Configuration.GetConnectionString("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TutorialDB;Trusted_Connection=True")));
+builder.Services.AddDbContext <CompanyDBContext> (options =>
+    options.UseSqlServer(builder.Configuration["TutorialDB"]));
 
 
 var app = builder.Build();

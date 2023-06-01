@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Addition\DTO\" />
     <Folder Include="Features\Addition\Request\" />
   </ItemGroup>
 
