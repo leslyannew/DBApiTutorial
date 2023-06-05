@@ -1,3 +1,5 @@
+using AutoMapper;
+using DBApiTutorial.Features.Addition.Map;
 using DBApiTutorial.GamePublisher;
 using DBApiTutorial.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +16,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext <CompanyDBContext> (options =>
     options.UseSqlServer(builder.Configuration["TutorialDB"]));
 
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new OfficeProfile());
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
 
 var app = builder.Build();
 

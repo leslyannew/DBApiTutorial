@@ -8,7 +8,7 @@ namespace DBApiTutorial.Domain.Entity
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
 
-        public ICollection<OfficeEmployee> Offices { get; set; } = new List<OfficeEmployee>();
+        //public ICollection<OfficeEmployee> Offices { get; set; } = new List<OfficeEmployee>();
 
         //public Employee(int id, int officeId, string? firstName, string? lastName)
         //{
