@@ -1,4 +1,4 @@
-﻿namespace DBApiTutorial.GamePublisher
+﻿namespace DBApiTutorial.Other.GamePublisher
 {
     public interface IStudioRepository
     {

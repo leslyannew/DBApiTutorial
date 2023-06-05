@@ -9,7 +9,8 @@ namespace DBApiTutorial.Domain.Entity
         public string? City { get; set; }
         public string? State { get; set; }
 
-        //public int RegionId { get; set; }
+        public int RegionId { get; set; }
+        
         //public Region Region { get; set; } = null!;
 
         //public ICollection<OfficeEmployee> Employees { get; set; } = new List<OfficeEmployee>();

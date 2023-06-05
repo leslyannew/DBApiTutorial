@@ -1,4 +1,4 @@
-﻿namespace DBApiTutorial.Domain.Entity
+﻿namespace DBApiTutorial.Other
 {
     public class OfficeEmployee
     {

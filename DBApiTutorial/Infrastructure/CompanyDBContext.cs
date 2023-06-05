@@ -1,4 +1,5 @@
 ﻿using DBApiTutorial.Domain.Entity;
+using DBApiTutorial.Other;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 using System.Reflection.Metadata;

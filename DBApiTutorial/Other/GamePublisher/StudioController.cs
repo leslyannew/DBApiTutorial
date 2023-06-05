@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace DBApiTutorial.GamePublisher
+namespace DBApiTutorial.Other.GamePublisher
 {
     [ApiController]
     public class StudioController : ControllerBase

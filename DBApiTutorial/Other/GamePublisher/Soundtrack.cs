@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DBApiTutorial.GamePublisher
+namespace DBApiTutorial.Other.GamePublisher
 {
     public class Soundtrack
     {

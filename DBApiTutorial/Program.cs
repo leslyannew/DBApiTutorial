@@ -14,7 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext <CompanyDBContext> (options =>
-    options.UseSqlServer(builder.Configuration["TutorialDB"]));
+    options.UseSqlServer(builder.Configuration["Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TutorialDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"]));
 
 var mapperConfig = new MapperConfiguration(mc =>
 {
