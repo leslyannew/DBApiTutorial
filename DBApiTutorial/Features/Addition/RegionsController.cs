@@ -3,37 +3,35 @@ using DBApiTutorial.Domain;
 using DBApiTutorial.Features.Addition.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace DBApiTutorial.Features.Addition
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RegionController : ControllerBase
+    public class RegionsController : ControllerBase
     {
         private readonly IRegionRepository _regionRepository;
         private readonly IMapper _mapper;
 
-        public RegionController(IRegionRepository regionRepository, IMapper mapper)
+        public RegionsController(IRegionRepository regionRepository, IMapper mapper)
         {
             _regionRepository = regionRepository;
             _mapper = mapper;
         }
 
-        // GET: api/<RegionController>
+        // GET api/regions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RegionDto>>> GetRegions()
         {
-            var regions = await _regionRepository.ListAllAsync();
+            var regions = await _regionRepository.GetRegionsAsync();
             return Ok(_mapper.Map<IEnumerable<RegionDto>>(regions));
             
         }
 
-        // GET api/<RegionController>/5
+        // GET api/regions/1
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRegion(int id)
         {
-            var region = await _regionRepository.GetByIdAsync(id);
+            var region = await _regionRepository.GetRegionByIdAsync(id);
 
             if(region == null)
             {
@@ -43,19 +41,19 @@ namespace DBApiTutorial.Features.Addition
             return Ok(_mapper.Map<RegionDto>(region));
         }
 
-        //// POST api/<RegionController>
+        //// POST api/regions
         //[HttpPost]
         //public void Post([FromBody] string value)
         //{
         //}
 
-        //// PUT api/<RegionController>/5
+        //// PUT api/regions/1
         //[HttpPut("{id}")]
         //public void Put(int id, [FromBody] string value)
         //{
         //}
 
-        //// DELETE api/<RegionController>/5
+        //// DELETE api/regions/1
         //[HttpDelete("{id}")]
         //public void Delete(int id)
         //{

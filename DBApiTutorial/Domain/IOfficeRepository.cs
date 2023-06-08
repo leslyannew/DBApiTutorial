@@ -2,12 +2,12 @@
 
 namespace DBApiTutorial.Domain
 {
-    public interface IRegionRepository
+    public interface IOfficeRepository
     {
-        Task<Region> GetRegionByIdAsync(int id);
-        Task<IReadOnlyList<Region>> GetRegionsAsync();
+        Task<Office> GetOfficeByIdAsync(int id);
+        Task<IReadOnlyList<Office>> GetOfficesAsync();
 
-        // TODO: Region CUD Actions
+        // TODO: Office CUD Actions
 
         //Task<T> AddAsync(T entity);
         //Task UpdateAsync(T entity);

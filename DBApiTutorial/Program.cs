@@ -4,6 +4,7 @@ using DBApiTutorial.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
 using System;
+using DBApiTutorial.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,17 +15,24 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-string connectionString = "Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog = TutorialDB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; Trust Server Certificate=False; Application Intent = ReadWrite; Multi Subnet Failover=False";
 
+builder.Services.AddDbContext<CompanyDBContext>(options => 
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:TutorialDB"]));
 
-builder.Services.AddDbContext<CompanyDBContext>(options => options.UseSqlServer(connectionString));
-
+/*
 var mapperConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new OfficeProfile());
 });
 
 IMapper mapper = mapperConfig.CreateMapper();
+*/
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+builder.Services.AddScoped<IRegionRepository, RegionRepository>();
+builder.Services.AddScoped<IOfficeRepository, OfficeRepository>();
 
 var app = builder.Build();
 
@@ -38,6 +46,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllers();
+//});
 
 app.MapControllers();
 

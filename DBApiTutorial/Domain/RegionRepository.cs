@@ -13,17 +13,17 @@ namespace DBApiTutorial.Domain
             this.context = context;
         }
 
-        public async Task<Region?> GetByIdAsync(int id)
+        public async Task<Region?> GetRegionByIdAsync(int id)
         {
             return await context.Regions.Where(r => r.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<IReadOnlyList<Region>> ListAllAsync()
+        public async Task<IReadOnlyList<Region>> GetRegionsAsync()
         {
-            return await context.Regions.OrderBy(r => r.Name).ToListAsync();
+            return await context.Regions.OrderBy(r => r.Id).ToListAsync();
         }
 
-        // TODO: CUD Action
+        // TODO: Region CUD Actions
 
         //public Task<Region> AddAsync(Region entity)
         //{
