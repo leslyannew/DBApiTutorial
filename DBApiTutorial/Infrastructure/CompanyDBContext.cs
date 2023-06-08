@@ -20,6 +20,10 @@ namespace DBApiTutorial.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Office>()
+                .HasOne<Region>()
+                .WithOne();
+
             mb.Entity<Region>().HasData(
                 new Region()
                 {
@@ -46,24 +50,31 @@ namespace DBApiTutorial.Infrastructure
                 {
                     Id = 1,
                     Building = "A",
+                    State = "WI",
                     RegionId = 1
                 },
                 new Office()
                 {
                     Id = 2,
                     Building = "B",
+                    Phone = "555-765-4321",
+                    City = "Baton Rouge",
+                    State = "LA",
                     RegionId = 2
                 },
                 new Office()
                 {
                     Id = 3,
                     Building = "C",
+                    Phone = "555-555-5555",
                     RegionId = 4
                 },
                 new Office()
                 {
                     Id = 4,
                     Building = "D",
+                    State = "CA",
+                    Phone = "555-111-1111",
                     RegionId = 3
                 });
         }

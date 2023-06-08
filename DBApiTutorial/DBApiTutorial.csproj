@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Addition\Request\" />
-    <Folder Include="Other\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DBApiTutorial.Domain.Entity
+namespace DBApiTutorial.Other
 {
     public class Employee
     {

@@ -10,7 +10,7 @@ namespace DBApiTutorial.Domain.Entity
         public string? City { get; set; }
         public string? State { get; set; }
 
-        [ForeignKey("RegionId")]
+        //[ForeignKey("RegionId")]
         public int RegionId { get; set; }
         
         //public Region Region { get; set; } = null!;
