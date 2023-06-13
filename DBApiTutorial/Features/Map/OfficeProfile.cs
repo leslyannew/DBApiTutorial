@@ -9,7 +9,7 @@ namespace DBApiTutorial.Features.Addition.Map
         public OfficeProfile() 
         {
             CreateMap<Office, OfficeDto>();
-            CreateMap<OfficeDto, Office>();
+            CreateMap<OfficeCreateDto, Office>();
         }
     }
 }

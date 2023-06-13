@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DBApiTutorial.Features.Addition
 {
+    //[Route("api/Regions/{regionId}/[controller]")]
     [Route("api/[controller]")]
     [ApiController]
     public class OfficesController : ControllerBase
@@ -28,7 +29,7 @@ namespace DBApiTutorial.Features.Addition
 
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{officeid}", Name = "GetOffice")]
         public async Task<IActionResult> GetOffice(int id)
         {
             var office = await officeRepository.GetOfficeByIdAsync(id);
@@ -42,14 +43,14 @@ namespace DBApiTutorial.Features.Addition
         }
 
         [HttpPost]
-        public async Task<ActionResult<OfficeDto>> CreateOffice(int regionId, /*[FromBody]*/ OfficeDto officeDto)
+        public async Task<ActionResult<OfficeDto>> CreateOffice(int regionId, [FromBody] OfficeCreateDto officeToCreate)
         {
-            if (await regionRepository.RegionExistsAsync(regionId))
+            if (!await regionRepository.RegionExistsAsync(regionId))
             {
-
+                return NotFound("Cannot create Office for a Region that does not exist.");
             }
 
-            var officeEntity = mapper.Map<Domain.Entity.Office>(officeDto);
+            var officeEntity = mapper.Map<Domain.Entity.Office>(officeToCreate);
             await officeRepository.AddOfficeAsync(officeEntity);
             await officeRepository.SaveChangesAsync();
             var officeToReturn = mapper.Map<OfficeDto>(officeEntity);
