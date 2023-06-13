@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DBApiTutorial.Features.Addition
 {
-    //[Route("api/Region/{regionId}/[controller]")]
+    //[Route("api/Regions/{regionId}/[controller]")]
     [Route("api/[controller]")]
     [ApiController]
     public class OfficesController : ControllerBase
