@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using DBApiTutorial.Domain.Entity;
-using DBApiTutorial.Features.Addition.DTO;
+using DBApiTutorial.Features.Regions.DTO;
 
-namespace DBApiTutorial.Features.Region
+namespace DBApiTutorial.Features.Regions
 {
     public class RegionProfile : Profile
     {
@@ -10,6 +10,7 @@ namespace DBApiTutorial.Features.Region
         {
             CreateMap<Region, RegionDto>();
             CreateMap<RegionCreateDto, Region>();
+            CreateMap<RegionUpdateDto, Region>();
         }
     }
 }

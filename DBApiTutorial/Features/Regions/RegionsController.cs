@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DBApiTutorial.Features.Addition.DTO;
+using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DBApiTutorial.Features.Addition
+namespace DBApiTutorial.Features.Regions
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -24,23 +24,23 @@ namespace DBApiTutorial.Features.Addition
         {
             var regions = await _regionRepository.GetRegionsAsync();
             return Ok(_mapper.Map<IEnumerable<RegionDto>>(regions));
-            
+
         }
 
         // GET api/regions/1
-        [HttpGet("{regionid}", Name = "GetRegion")]
+        [HttpGet("{id}", Name = "GetRegion")]
         public async Task<IActionResult> GetRegion(int id)
         {
             var region = await _regionRepository.GetRegionByIdAsync(id);
 
-            if(region == null)
+            if (region == null)
             {
                 return NotFound();
             }
 
             return Ok(_mapper.Map<RegionDto>(region));
         }
-        
+
         [HttpPost]
         public async Task<ActionResult<RegionDto>> CreateRegion([FromBody] RegionCreateDto regionToCreate)
         {
@@ -53,13 +53,20 @@ namespace DBApiTutorial.Features.Addition
                 {
                     regionId = regionToReturn.Id
                 },
-                regionToReturn) ;
+                regionToReturn);
         }
 
-        [HttpPut("{regionid}")]
-        public void UpdateRegion(int id, [FromBody] string value)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateRegion(int id, [FromBody] RegionUpdateDto regionToUpdate)
         {
-
+            if (!await _regionRepository.RegionExistsAsync(id))
+            {
+                return NotFound();
+            }
+            var regionEntity = await _regionRepository.GetRegionByIdAsync(id);
+            _mapper.Map(regionToUpdate, regionEntity);
+            await _regionRepository.SaveChangesAsync();
+            return NoContent();
         }
 
         //// DELETE api/regions/1

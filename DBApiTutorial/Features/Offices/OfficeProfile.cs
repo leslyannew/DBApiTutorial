@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using DBApiTutorial.Domain.Entity;
-using DBApiTutorial.Features.Addition.DTO;
+using DBApiTutorial.Features.Offices.DTO;
 
-namespace DBApiTutorial.Features.Office
+namespace DBApiTutorial.Features.Offices
 {
     public class OfficeProfile : Profile
     {

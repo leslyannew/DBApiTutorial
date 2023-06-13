@@ -86,7 +86,7 @@ namespace DBApiTutorial.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DBApiTutorial.Domain.Entity.Region", b =>
+            modelBuilder.Entity("DBApiTutorial.Domain.Entity.Regions", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,7 +126,7 @@ namespace DBApiTutorial.Migrations
 
             modelBuilder.Entity("DBApiTutorial.Domain.Entity.Office", b =>
                 {
-                    b.HasOne("DBApiTutorial.Domain.Entity.Region", null)
+                    b.HasOne("DBApiTutorial.Domain.Entity.Regions", null)
                         .WithOne()
                         .HasForeignKey("DBApiTutorial.Domain.Entity.Office", "RegionId")
                         .OnDelete(DeleteBehavior.Cascade)

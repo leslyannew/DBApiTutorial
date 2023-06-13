@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DBApiTutorial.Features.Office.DTO;
+using DBApiTutorial.Features.Offices.DTO;
 using DBApiTutorial.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DBApiTutorial.Features.Office
+namespace DBApiTutorial.Features.Offices
 {
     //[Route("api/Regions/{regionId}/[controller]")]
     [Route("api/[controller]")]

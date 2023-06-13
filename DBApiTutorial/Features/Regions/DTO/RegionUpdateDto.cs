@@ -1,8 +1,7 @@
-﻿namespace DBApiTutorial.Features.Addition.DTO
+﻿namespace DBApiTutorial.Features.Regions.DTO
 {
     public class RegionUpdateDto
     {
-        public int Id { get; set; }
         public string? Name { get; set; }
     }
 }

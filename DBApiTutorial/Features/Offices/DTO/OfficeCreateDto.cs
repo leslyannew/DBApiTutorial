@@ -1,4 +1,4 @@
-﻿namespace DBApiTutorial.Features.Office.DTO
+﻿namespace DBApiTutorial.Features.Offices.DTO
 {
     public class OfficeCreateDto
     {

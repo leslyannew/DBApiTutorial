@@ -1,4 +1,4 @@
-﻿namespace DBApiTutorial.Features.Addition.DTO
+﻿namespace DBApiTutorial.Features.Regions.DTO
 {
     public class RegionCreateDto
     {
