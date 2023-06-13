@@ -28,7 +28,7 @@ namespace DBApiTutorial.Features.Addition
         }
 
         // GET api/regions/1
-        [HttpGet("{id}")]
+        [HttpGet("{regionid}", Name = "GetRegion")]
         public async Task<IActionResult> GetRegion(int id)
         {
             var region = await _regionRepository.GetRegionByIdAsync(id);
@@ -40,12 +40,21 @@ namespace DBApiTutorial.Features.Addition
 
             return Ok(_mapper.Map<RegionDto>(region));
         }
-
-        //// POST api/regions
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        
+        [HttpPost]
+        public async Task<ActionResult<RegionDto>> CreateOffice([FromBody] RegionCreateDto regionToCreate)
+        {
+            var regionEntity = _mapper.Map<Domain.Entity.Region>(regionToCreate);
+            await _regionRepository.AddRegionAsync(regionEntity);
+            await _regionRepository.SaveChangesAsync();
+            var regionToReturn = _mapper.Map<RegionDto>(regionEntity);
+            return CreatedAtRoute("GetRegion",
+                new
+                {
+                    regionId = regionToReturn.Id
+                },
+                regionToReturn) ;
+        }
 
         //// PUT api/regions/1
         //[HttpPut("{id}")]

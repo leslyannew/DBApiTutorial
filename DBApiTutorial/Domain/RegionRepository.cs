@@ -23,12 +23,23 @@ namespace DBApiTutorial.Domain
             return await context.Regions.OrderBy(r => r.Id).ToListAsync();
         }
 
+        public async Task<bool> RegionExistsAsync(int regionId)
+        {
+            return await context.Regions.AnyAsync(r => r.Id == regionId);
+        }
+
         // TODO: Region CUD Actions
 
-        //public Task<Region> AddAsync(Region entity)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task AddRegionAsync(Region region)
+        {
+            await context.Regions.AddAsync(region);
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            //TODO : Change this 0?
+            return await context.SaveChangesAsync() >= 0;
+        }
 
         //public Task UpdateAsync(Region entity)
         //{

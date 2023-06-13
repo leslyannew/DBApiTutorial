@@ -4,12 +4,13 @@ namespace DBApiTutorial.Domain
 {
     public interface IOfficeRepository
     {
-        Task<Office> GetOfficeByIdAsync(int id);
+        Task<Office?> GetOfficeByIdAsync(int officeId);
         Task<IReadOnlyList<Office>> GetOfficesAsync();
 
         // TODO: Office CUD Actions
 
-        //Task<T> AddAsync(T entity);
+        Task AddOfficeAsync(Office office);
+        Task<bool> SaveChangesAsync();
         //Task UpdateAsync(T entity);
         //Task DeleteAsync(T entity);
     }

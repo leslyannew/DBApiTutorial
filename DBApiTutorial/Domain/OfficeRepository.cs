@@ -7,10 +7,12 @@ namespace DBApiTutorial.Domain
     public class OfficeRepository : IOfficeRepository
     {
         private readonly CompanyDBContext context;
+        //private readonly RegionRepository regionRepository;
 
         public OfficeRepository(CompanyDBContext context)
         {
             this.context = context;
+            //this.regionRepository = regionRepository;
         }
 
         public async Task<Office?> GetOfficeByIdAsync(int id)
@@ -21,6 +23,17 @@ namespace DBApiTutorial.Domain
         public async Task<IReadOnlyList<Office>> GetOfficesAsync()
         {
             return await context.Offices.OrderBy(o => o.Id).ToListAsync();
+        }
+
+        public async Task AddOfficeAsync(Office office)
+        {
+            await context.Offices.AddAsync(office);
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            //TODO : Change this 0?
+            return await context.SaveChangesAsync() >= 0;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace DBApiTutorial.Features.Addition.Map
         public RegionProfile()
         {
             CreateMap<Region, RegionDto>();
+            CreateMap<RegionCreateDto, Region>();
         }
     }
 }
