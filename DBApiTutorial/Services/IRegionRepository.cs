@@ -1,6 +1,6 @@
 ﻿using DBApiTutorial.Domain.Entity;
 
-namespace DBApiTutorial.Domain
+namespace DBApiTutorial.Services
 {
     public interface IRegionRepository
     {
@@ -8,7 +8,7 @@ namespace DBApiTutorial.Domain
         Task<IReadOnlyList<Region>> GetRegionsAsync();
         Task<bool> RegionExistsAsync(int regionId);
 
-        // TODO: Region CUD Actions
+        // TODO: Region UD Actions
 
         Task AddRegionAsync(Region region);
         Task<bool> SaveChangesAsync();

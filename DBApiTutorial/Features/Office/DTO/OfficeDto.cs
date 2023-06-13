@@ -1,7 +1,8 @@
-﻿namespace DBApiTutorial.Features.Addition.DTO
+﻿namespace DBApiTutorial.Features.Office.DTO
 {
-    public class OfficeCreateDto
+    public class OfficeDto
     {
+        public int Id { get; set; }
         public string Building { get; set; } = string.Empty;
         public string? Phone { get; set; }
         public string? City { get; set; }

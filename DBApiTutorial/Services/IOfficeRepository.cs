@@ -1,6 +1,6 @@
 ﻿using DBApiTutorial.Domain.Entity;
 
-namespace DBApiTutorial.Domain
+namespace DBApiTutorial.Services
 {
     public interface IOfficeRepository
     {

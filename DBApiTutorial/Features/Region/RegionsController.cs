@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using DBApiTutorial.Domain;
 using DBApiTutorial.Features.Addition.DTO;
+using DBApiTutorial.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DBApiTutorial.Features.Addition
@@ -42,7 +42,7 @@ namespace DBApiTutorial.Features.Addition
         }
         
         [HttpPost]
-        public async Task<ActionResult<RegionDto>> CreateOffice([FromBody] RegionCreateDto regionToCreate)
+        public async Task<ActionResult<RegionDto>> CreateRegion([FromBody] RegionCreateDto regionToCreate)
         {
             var regionEntity = _mapper.Map<Domain.Entity.Region>(regionToCreate);
             await _regionRepository.AddRegionAsync(regionEntity);
@@ -56,11 +56,11 @@ namespace DBApiTutorial.Features.Addition
                 regionToReturn) ;
         }
 
-        //// PUT api/regions/1
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        [HttpPut("{regionid}")]
+        public void UpdateRegion(int id, [FromBody] string value)
+        {
+
+        }
 
         //// DELETE api/regions/1
         //[HttpDelete("{id}")]

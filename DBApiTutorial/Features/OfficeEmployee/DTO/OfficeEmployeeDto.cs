@@ -1,4 +1,4 @@
-﻿namespace DBApiTutorial.Other
+﻿namespace DBApiTutorial.Features.OfficeEmployee.DTO
 {
     public class OfficeEmployeeDto
     {

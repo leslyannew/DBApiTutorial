@@ -1,6 +1,6 @@
 ﻿using DBApiTutorial.Domain.Entity;
 
-namespace DBApiTutorial.Other
+namespace DBApiTutorial.Features.Employee.DTO
 {
     public class EmployeeDto
     {

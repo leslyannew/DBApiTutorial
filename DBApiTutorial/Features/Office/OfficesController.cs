@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DBApiTutorial.Domain;
-using DBApiTutorial.Features.Addition.DTO;
+using DBApiTutorial.Features.Office.DTO;
+using DBApiTutorial.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DBApiTutorial.Features.Addition
+namespace DBApiTutorial.Features.Office
 {
     //[Route("api/Regions/{regionId}/[controller]")]
     [Route("api/[controller]")]
@@ -57,7 +57,7 @@ namespace DBApiTutorial.Features.Addition
             return CreatedAtRoute("GetOffice",
                 new
                 {
-                    regionId = regionId,
+                    regionId,
                     officeId = officeToReturn.Id
                 },
                 officeToReturn);

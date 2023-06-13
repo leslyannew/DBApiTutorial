@@ -2,7 +2,7 @@
 using DBApiTutorial.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace DBApiTutorial.Domain
+namespace DBApiTutorial.Services
 {
     public class OfficeRepository : IOfficeRepository
     {

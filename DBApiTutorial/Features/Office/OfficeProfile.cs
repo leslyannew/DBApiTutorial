@@ -2,11 +2,11 @@
 using DBApiTutorial.Domain.Entity;
 using DBApiTutorial.Features.Addition.DTO;
 
-namespace DBApiTutorial.Features.Addition.Map
+namespace DBApiTutorial.Features.Office
 {
     public class OfficeProfile : Profile
     {
-        public OfficeProfile() 
+        public OfficeProfile()
         {
             CreateMap<Office, OfficeDto>();
             CreateMap<OfficeCreateDto, Office>();

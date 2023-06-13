@@ -2,7 +2,7 @@
 using DBApiTutorial.Domain.Entity;
 using DBApiTutorial.Features.Addition.DTO;
 
-namespace DBApiTutorial.Features.Addition.Map
+namespace DBApiTutorial.Features.Region
 {
     public class RegionProfile : Profile
     {

@@ -1,4 +1,4 @@
-﻿namespace DBApiTutorial.Domain
+﻿namespace DBApiTutorial.Services
 {
     public interface IAsyncRepository<T> where T : class
     {

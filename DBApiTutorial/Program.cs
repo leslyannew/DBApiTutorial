@@ -4,7 +4,7 @@ using DBApiTutorial.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
 using System;
-using DBApiTutorial.Domain;
+using DBApiTutorial.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
