@@ -6,13 +6,9 @@ namespace DBApiTutorial.Services
     {
         Task<Region?> GetRegionByIdAsync(int id);
         Task<IReadOnlyList<Region>> GetRegionsAsync();
-        Task<bool> RegionExistsAsync(int regionId);
-
-        // TODO: Region UD Actions
-
+        Task<bool> RegionExistsAsync(int id);
         Task AddRegionAsync(Region region);
         Task<bool> SaveChangesAsync();
-        //Task UpdateAsync(T entity);
-        //Task DeleteAsync(T entity);
+        public void DeleteRegion(Region region);
     }
 }

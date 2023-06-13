@@ -6,49 +6,42 @@ namespace DBApiTutorial.Services
 {
     public class RegionRepository : IRegionRepository
     {
-        private readonly CompanyDBContext context;
+        private readonly CompanyDBContext _context;
 
         public RegionRepository(CompanyDBContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<Region?> GetRegionByIdAsync(int id)
         {
-            return await context.Regions.Where(r => r.Id == id).FirstOrDefaultAsync();
+            return await _context.Regions.Where(r => r.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<IReadOnlyList<Region>> GetRegionsAsync()
         {
-            return await context.Regions.OrderBy(r => r.Id).ToListAsync();
+            return await _context.Regions.OrderBy(r => r.Id).ToListAsync();
         }
 
         public async Task<bool> RegionExistsAsync(int regionId)
         {
-            return await context.Regions.AnyAsync(r => r.Id == regionId);
+            return await _context.Regions.AnyAsync(r => r.Id == regionId);
         }
-
-        // TODO: Region UD Actions
 
         public async Task AddRegionAsync(Region region)
         {
-            await context.Regions.AddAsync(region);
+            await _context.Regions.AddAsync(region);
         }
 
-        //public Task UpdateAsync(Region region)
-        //{
-            
-        //}
-
-        //public Task DeleteAsync(Region entity)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void DeleteRegion(Region region)
+        {
+            _context.Regions.Remove(region);
+        }
 
         public async Task<bool> SaveChangesAsync()
         {
             //TODO : Change this 0?
-            return await context.SaveChangesAsync() >= 0;
+            return await _context.SaveChangesAsync() >= 0;
         }
 
     }

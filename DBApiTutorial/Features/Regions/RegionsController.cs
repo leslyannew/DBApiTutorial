@@ -29,7 +29,7 @@ namespace DBApiTutorial.Features.Regions
 
         // GET api/regions/1
         [HttpGet("{id}", Name = "GetRegion")]
-        public async Task<IActionResult> GetRegion(int id)
+        public async Task<ActionResult> GetRegion(int id)
         {
             var region = await _regionRepository.GetRegionByIdAsync(id);
 
@@ -51,7 +51,7 @@ namespace DBApiTutorial.Features.Regions
             return CreatedAtRoute("GetRegion",
                 new
                 {
-                    regionId = regionToReturn.Id
+                    id = regionToReturn.Id
                 },
                 regionToReturn);
         }
@@ -59,20 +59,29 @@ namespace DBApiTutorial.Features.Regions
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateRegion(int id, [FromBody] RegionUpdateDto regionToUpdate)
         {
-            if (!await _regionRepository.RegionExistsAsync(id))
+            var regionEntity = await _regionRepository.GetRegionByIdAsync(id);
+            if (regionEntity == null)
             {
                 return NotFound();
             }
-            var regionEntity = await _regionRepository.GetRegionByIdAsync(id);
+            
             _mapper.Map(regionToUpdate, regionEntity);
             await _regionRepository.SaveChangesAsync();
             return NoContent();
         }
 
-        //// DELETE api/regions/1
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteRegion(int id)
+        {
+            var regionEntity = await _regionRepository.GetRegionByIdAsync(id);
+            if (regionEntity == null)
+            {
+                return NotFound();
+            }
+
+            _regionRepository.DeleteRegion(regionEntity);
+            await _regionRepository.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
