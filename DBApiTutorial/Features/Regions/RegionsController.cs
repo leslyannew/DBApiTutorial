@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DBApiTutorial.Features.Regions.DTO;
+using DBApiTutorial.Features.Regions.Request;
 using DBApiTutorial.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DBApiTutorial.Features.Regions
@@ -11,76 +13,62 @@ namespace DBApiTutorial.Features.Regions
     {
         private readonly IRegionRepository _regionRepository;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public RegionsController(IRegionRepository regionRepository, IMapper mapper)
+        public RegionsController(IRegionRepository regionRepository, IMapper mapper, IMediator mediator)
         {
             _regionRepository = regionRepository;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
-        // GET api/regions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RegionDto>>> GetRegions()
         {
-            var regions = await _regionRepository.GetRegionsAsync();
-            return Ok(_mapper.Map<IEnumerable<RegionDto>>(regions));
+            var result = await _mediator.Send(new GetRegions.Query());
+            return Ok(result);
 
         }
 
-        // GET api/regions/1
-        [HttpGet("{id}", Name = "GetRegion")]
+        [HttpGet("{id}")]
         public async Task<ActionResult> GetRegion(int id)
         {
-            var region = await _regionRepository.GetRegionByIdAsync(id);
-
-            if (region == null)
+            var result = await _mediator.Send(new GetRegionById.Query() { Id = id });
+            
+            if (result == null)
             {
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<RegionDto>(region));
+            return Ok(result);
         }
 
         [HttpPost]
         public async Task<ActionResult<RegionDto>> CreateRegion([FromBody] RegionCreateDto regionToCreate)
         {
-            var regionEntity = _mapper.Map<Domain.Entity.Region>(regionToCreate);
-            await _regionRepository.AddRegionAsync(regionEntity);
-            await _regionRepository.SaveChangesAsync();
-            var regionToReturn = _mapper.Map<RegionDto>(regionEntity);
-            return CreatedAtRoute("GetRegion",
-                new
-                {
-                    id = regionToReturn.Id
-                },
-                regionToReturn);
+            var regionToReturn = await _mediator.Send(new CreateRegion.Command() { Region = regionToCreate });
+            return Created($"regions/{regionToReturn.Id}", regionToReturn);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateRegion(int id, [FromBody] RegionUpdateDto regionToUpdate)
         {
-            var regionEntity = await _regionRepository.GetRegionByIdAsync(id);
-            if (regionEntity == null)
+            var result = await _mediator.Send(new UpdateRegion.Command() { Id = id, Region = regionToUpdate });
+            if (result == -1)
             {
                 return NotFound();
             }
-            
-            _mapper.Map(regionToUpdate, regionEntity);
-            await _regionRepository.SaveChangesAsync();
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteRegion(int id)
         {
-            var regionEntity = await _regionRepository.GetRegionByIdAsync(id);
-            if (regionEntity == null)
+            var result = await _mediator.Send(new DeleteRegion.Command() { Id = id });
+            if (result == -1)
             {
                 return NotFound();
             }
-
-            _regionRepository.DeleteRegion(regionEntity);
-            await _regionRepository.SaveChangesAsync();
             return NoContent();
         }
     }

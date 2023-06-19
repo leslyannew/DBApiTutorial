@@ -1,9 +1,12 @@
 using AutoMapper;
+using MediatR;
 using DBApiTutorial.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
 using System;
 using DBApiTutorial.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +31,7 @@ IMapper mapper = mapperConfig.CreateMapper();
 */
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 
 
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();

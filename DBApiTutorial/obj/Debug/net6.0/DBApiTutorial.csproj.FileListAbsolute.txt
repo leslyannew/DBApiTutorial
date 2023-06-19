@@ -87,3 +87,6 @@ C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\bin\Debug\net6.0\Mic
 C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
 C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\bin\Debug\net6.0\System.Memory.Data.dll
 C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\bin\Debug\net6.0\MediatR.dll
+C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\bin\Debug\net6.0\MediatR.Contracts.dll
+C:\Users\P00354600\source\repos\DBApiTutorial\DBApiTutorial\bin\Debug\net6.0\MediatR.Extensions.dll
