@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using DBApiTutorial.Features.Offices.DTO;
-using DBApiTutorial.Services;
+﻿using DBApiTutorial.Features.Offices.DTO;
+using DBApiTutorial.Features.Offices.Request;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DBApiTutorial.Features.Offices
@@ -9,58 +9,63 @@ namespace DBApiTutorial.Features.Offices
     [Route("api/[controller]")]
     [ApiController]
     public class OfficesController : ControllerBase
-    {
-        private readonly IOfficeRepository officeRepository;
-        private readonly IRegionRepository regionRepository;
-        private readonly IMapper mapper;
+    { 
+        private readonly IMediator _mediator;
 
-        public OfficesController(IOfficeRepository officeRepository, IRegionRepository regionRepository, IMapper mapper)
+        public OfficesController(IMediator mediator)
         {
-            this.officeRepository = officeRepository;
-            this.regionRepository = regionRepository;
-            this.mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OfficeDto>>> GetOffices()
         {
-            var offices = await officeRepository.GetOfficesAsync();
-            return Ok(mapper.Map<IEnumerable<OfficeDto>>(offices));
-
+            var result = await _mediator.Send(new GetOffices.Query());
+            return Ok(result);
         }
 
-        [HttpGet("{officeid}", Name = "GetOffice")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetOffice(int id)
         {
-            var office = await officeRepository.GetOfficeByIdAsync(id);
-
-            if (office == null)
+            var result = await _mediator.Send(new GetOfficeById.Query() { Id = id });
+            if (result == null)
             {
                 return NotFound();
             }
-
-            return Ok(mapper.Map<OfficeDto>(office));
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<OfficeDto>> CreateOffice(int regionId, [FromBody] OfficeCreateDto officeToCreate)
+        public async Task<ActionResult<OfficeDto>> CreateOffice([FromBody] OfficeCreateDto officeToCreate)
         {
-            if (!await regionRepository.RegionExistsAsync(regionId))
+            var result = await _mediator.Send(new CreateOffice.Command() { Office =  officeToCreate });
+            if(result == null)
             {
-                return NotFound("Cannot create Office for a Region that does not exist.");
+                return NotFound("Region does not exist or already has an existing office.");
             }
+            return Created($"offices/{result.Id}", result);
+        }
 
-            var officeEntity = mapper.Map<Domain.Entity.Office>(officeToCreate);
-            await officeRepository.AddOfficeAsync(officeEntity);
-            await officeRepository.SaveChangesAsync();
-            var officeToReturn = mapper.Map<OfficeDto>(officeEntity);
-            return CreatedAtRoute("GetOffice",
-                new
-                {
-                    regionId,
-                    officeId = officeToReturn.Id
-                },
-                officeToReturn);
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateOffice(int id, [FromBody] OfficeUpdateDto officeToUpdate)
+        {
+            var result = await _mediator.Send(new UpdateOffice.Command() { Id = id, Office = officeToUpdate });
+            if (result == -1)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteOffice(int id)
+        {
+            var result = await _mediator.Send(new DeleteOffice.Command() { Id = id });
+            if (result == -1)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
 }

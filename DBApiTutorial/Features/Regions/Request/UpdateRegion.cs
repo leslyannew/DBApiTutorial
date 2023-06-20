@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using DBApiTutorial.Domain.Entity;
 using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections;
+
 
 namespace DBApiTutorial.Features.Regions.Request
 {
@@ -20,10 +18,10 @@ namespace DBApiTutorial.Features.Regions.Request
         
         public class Handler : IRequestHandler<Command, int>
         {
-            private readonly CompanyDBContext _context;
+            private readonly OrgDBContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(CompanyDBContext context, IMapper mapper)
+            public Handler(OrgDBContext context, IMapper mapper)
             {
                _context = context;
                _mapper = mapper;

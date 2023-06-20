@@ -18,8 +18,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddDbContext<CompanyDBContext>(options => 
-    options.UseSqlServer(builder.Configuration["ConnectionStrings:TutorialDB"]));
+builder.Services.AddDbContext<OrgDBContext>(options => 
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:ApiTutorialDB"]));
 
 /*
 var mapperConfig = new MapperConfiguration(mc =>
@@ -27,7 +27,7 @@ var mapperConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new OfficeProfile());
 });
 
-IMapper mapper = mapperConfig.CreateMapper();
+IMapper _mapper = mapperConfig.CreateMapper();
 */
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

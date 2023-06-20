@@ -13,16 +13,16 @@ namespace DBApiTutorial.Features.Regions.Request
     {
         public class Query : IRequest<IEnumerable<RegionDto>>
         {
-            //[Declarations if necessary]
+
         }
 
         
         public class Handler : IRequestHandler<Query, IEnumerable<RegionDto>>
         {
-            private readonly CompanyDBContext _context;
+            private readonly OrgDBContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(CompanyDBContext context, IMapper mapper)
+            public Handler(OrgDBContext context, IMapper mapper)
             {
                _context = context;
                _mapper = mapper;

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "SWhIvTBHYpbvalv9rHeIqbtMPoX6/T7wK8GbPyQjmtEseyVsW7I2/W0xH84EJuIuotHpWCAh/YemXrDHm5SCJg==",
+  "dgSpecHash": "tXgERm4JZDhml5CDdQUtYc7KRKPgPpG6bTdthKCu2bfWLaknF0v4crcSJpv1wKFEMoVNBbMCyEyWsmQIdnS4ZA==",
   "success": true,
   "projectFilePath": "C:\\Users\\P00354600\\source\\repos\\DBApiTutorial\\DBApiTutorial\\DBApiTutorial.csproj",
   "expectedPackageFiles": [
@@ -11,7 +11,6 @@
     "C:\\Users\\P00354600\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\P00354600\\.nuget\\packages\\mediatr\\12.0.1\\mediatr.12.0.1.nupkg.sha512",
     "C:\\Users\\P00354600\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
-    "C:\\Users\\P00354600\\.nuget\\packages\\mediatr.extensions\\0.6.0\\mediatr.extensions.0.6.0.nupkg.sha512",
     "C:\\Users\\P00354600\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\P00354600\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\P00354600\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",
@@ -84,16 +83,5 @@
     "C:\\Users\\P00354600\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\P00354600\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'MediatR.Extensions 0.6.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
-      "libraryId": "MediatR.Extensions",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  "logs": []
 }

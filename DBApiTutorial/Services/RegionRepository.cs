@@ -6,9 +6,9 @@ namespace DBApiTutorial.Services
 {
     public class RegionRepository : IRegionRepository
     {
-        private readonly CompanyDBContext _context;
+        private readonly OrgDBContext _context;
 
-        public RegionRepository(CompanyDBContext context)
+        public RegionRepository(OrgDBContext context)
         {
             _context = context;
         }

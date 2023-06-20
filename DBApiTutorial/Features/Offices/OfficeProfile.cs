@@ -10,6 +10,7 @@ namespace DBApiTutorial.Features.Offices
         {
             CreateMap<Office, OfficeDto>();
             CreateMap<OfficeCreateDto, Office>();
+            CreateMap<OfficeUpdateDto, Office>();
         }
     }
 }

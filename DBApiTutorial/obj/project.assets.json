@@ -118,18 +118,6 @@
           }
         }
       },
-      "MediatR.Extensions/0.6.0": {
-        "type": "package",
-        "dependencies": {
-          "MediatR": "1.0.0"
-        },
-        "compile": {
-          "lib/net45/MediatR.Extensions.dll": {}
-        },
-        "runtime": {
-          "lib/net45/MediatR.Extensions.dll": {}
-        }
-      },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "type": "package",
         "compile": {
@@ -1430,18 +1418,6 @@
         "lib/netstandard2.0/MediatR.Contracts.xml",
         "mediatr.contracts.2.0.1.nupkg.sha512",
         "mediatr.contracts.nuspec"
-      ]
-    },
-    "MediatR.Extensions/0.6.0": {
-      "sha512": "YIFb8hW1JBTAV2teZrUfB+u3S5+900s/IiHJMDdVmkHjmpG4V29iRK8RAtcsOHDZ6xSVowFCm8D8+6mQbSwhgA==",
-      "type": "package",
-      "path": "mediatr.extensions/0.6.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net45/MediatR.Extensions.dll",
-        "mediatr.extensions.0.6.0.nupkg.sha512",
-        "mediatr.extensions.nuspec"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
@@ -4075,7 +4051,6 @@
       "AutoMapper >= 12.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
       "MediatR >= 12.0.1",
-      "MediatR.Extensions >= 0.6.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.5",
       "Swashbuckle.AspNetCore >= 6.5.0"
@@ -4139,10 +4114,6 @@
             "target": "Package",
             "version": "[12.0.1, )"
           },
-          "MediatR.Extensions": {
-            "target": "Package",
-            "version": "[0.6.0, )"
-          },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
             "version": "[7.0.5, )"
@@ -4180,17 +4151,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'MediatR.Extensions 0.6.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
-      "libraryId": "MediatR.Extensions",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  }
 }

@@ -6,13 +6,13 @@ namespace DBApiTutorial.Services
 {
     public class OfficeRepository : IOfficeRepository
     {
-        private readonly CompanyDBContext context;
-        //private readonly RegionRepository regionRepository;
+        private readonly OrgDBContext context;
+        //private readonly RegionRepository _regionRepository;
 
-        public OfficeRepository(CompanyDBContext context)
+        public OfficeRepository(OrgDBContext context)
         {
             this.context = context;
-            //this.regionRepository = regionRepository;
+            //this._regionRepository = _regionRepository;
         }
 
         public async Task<Office?> GetOfficeByIdAsync(int id)

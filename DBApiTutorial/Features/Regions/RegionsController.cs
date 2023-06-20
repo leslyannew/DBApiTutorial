@@ -11,14 +11,10 @@ namespace DBApiTutorial.Features.Regions
     [ApiController]
     public class RegionsController : ControllerBase
     {
-        private readonly IRegionRepository _regionRepository;
-        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public RegionsController(IRegionRepository regionRepository, IMapper mapper, IMediator mediator)
+        public RegionsController(IMediator mediator)
         {
-            _regionRepository = regionRepository;
-            _mapper = mapper;
             _mediator = mediator;
         }
 
@@ -46,8 +42,8 @@ namespace DBApiTutorial.Features.Regions
         [HttpPost]
         public async Task<ActionResult<RegionDto>> CreateRegion([FromBody] RegionCreateDto regionToCreate)
         {
-            var regionToReturn = await _mediator.Send(new CreateRegion.Command() { Region = regionToCreate });
-            return Created($"regions/{regionToReturn.Id}", regionToReturn);
+            var result = await _mediator.Send(new CreateRegion.Command() { Region = regionToCreate });
+            return Created($"regions/{result.Id}", result);
         }
 
         [HttpPut("{id}")]

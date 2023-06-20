@@ -19,10 +19,10 @@ namespace DBApiTutorial.Features.Regions.Request
         
         public class Handler : IRequestHandler<Query, RegionDto>
         {
-            private readonly CompanyDBContext _context;
+            private readonly OrgDBContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(CompanyDBContext context, IMapper mapper)
+            public Handler(OrgDBContext context, IMapper mapper)
             {
                _context = context;
                _mapper = mapper;

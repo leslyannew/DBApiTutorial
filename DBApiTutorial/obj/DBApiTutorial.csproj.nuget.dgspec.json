@@ -58,10 +58,6 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
-            "MediatR.Extensions": {
-              "target": "Package",
-              "version": "[0.6.0, )"
-            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[7.0.5, )"
