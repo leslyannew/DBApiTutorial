@@ -8,11 +8,10 @@ namespace DBApiTutorial.Features.Employees
     {
         public EmployeeProfile()
         {
-            CreateMap<Employee, EmployeeWithOfficesDto>();
-            CreateMap<Employee, EmployeeDto>();
-
-            //CreateMap<EmployeeCreateDto, Employee>();
-            //CreateMap<EmployeeUpdateDto, Employee>();
+            CreateMap<Employee, EmployeeDto>();            
+            CreateMap<EmployeeDto, Employee>();            
+            CreateMap<EmployeeCreateDto, Employee>();
+            CreateMap<EmployeeUpdateDto, Employee>();
         }
     }
 }

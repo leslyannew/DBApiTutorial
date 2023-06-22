@@ -50,10 +50,28 @@ namespace DBApiTutorial.Features.Employees.Request
 
                                    }).ToList()
 
-                    }).FirstOrDefaultAsync();                    
-
-                //return _mapper.Map<EmployeeWithOfficesDto>(employeeWithOffices);
+                    }).FirstOrDefaultAsync();
                 return employeeWithOffices;
+
+
+
+
+                //var emp = _context.Employees.Where(e => e.Id == request.Id).FirstOrDefault();
+                //var offEmp = _context.OfficeEmployees.Where(oe => oe.EmployeeId == request.Id).AsEnumerable();
+                //IEnumerable<Office> offices = new List<Office>();
+                //IEnumerable<OfficeDto> officeDtos = new List<OfficeDto>();
+                //foreach(OfficeEmployee off in offEmp)
+                //{
+                //    offices = await _context.Offices.Where(o => o.Id == off.OfficeId).ToListAsync();
+                //}
+                //foreach(Office office in offices)
+                //{
+                //    officeDtos = _mapper.Map<OfficeDto>(office);
+                //}
+
+                //EmployeeWithOfficesDto dto = new EmployeeWithOfficesDto(offices);
+
+
             }
         }
     }

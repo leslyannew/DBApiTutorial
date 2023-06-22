@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using DBApiTutorial.Features.Offices.DTO;
+using DBApiTutorial.Features.Employees.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DBApiTutorial.Features.Offices.Request
+namespace DBApiTutorial.Features.Employees.Request
 {
-    public class UpdateOffice
+    public class UpdateEmployee
     {
         public class Command : IRequest<int>
         {
             public int Id { get; set; }
-            public OfficeUpdateDto Office { get; set; } = new OfficeUpdateDto();
+            public EmployeeUpdateDto Employee { get; set; } = new EmployeeUpdateDto();
         }
 
 
@@ -28,12 +28,12 @@ namespace DBApiTutorial.Features.Offices.Request
 
             public async Task<int> Handle(Command command, CancellationToken cancellationToken)
             {
-                var officeEntity = await _context.Offices.Where(o => o.Id == command.Id).FirstOrDefaultAsync();
-                if (officeEntity == null)
+                var employeeEntity = await _context.Employees.Where(e => e.Id == command.Id).FirstOrDefaultAsync();
+                if (employeeEntity == null)
                 {
                     return -1;
                 }
-                _mapper.Map(command.Office, officeEntity);
+                _mapper.Map(command.Employee, employeeEntity);
                 return await _context.SaveChangesAsync();
             }
         }

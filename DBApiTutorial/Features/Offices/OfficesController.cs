@@ -41,7 +41,7 @@ namespace DBApiTutorial.Features.Offices
             var result = await _mediator.Send(new CreateOffice.Command() { Office =  officeToCreate });
             if(result == null)
             {
-                return NotFound("Region does not exist or already has an existing office.");
+                return BadRequest("Office could not be created.");
             }
             return Created($"offices/{result.Id}", result);
         }

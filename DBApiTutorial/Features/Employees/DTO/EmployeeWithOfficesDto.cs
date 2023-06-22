@@ -14,5 +14,10 @@ namespace DBApiTutorial.Features.Employees.DTO
         //public IEnumerable<int> OfficeIds { get; set; } = new List<int>();
         public IEnumerable<OfficeDto> Offices { get; set; } = new List<OfficeDto>();
 
+
+        //public EmployeeWithOfficesDto(IEnumerable<OfficeDto> offices) 
+        //{ 
+        //    Offices = offices;
+        //}
     }
 }

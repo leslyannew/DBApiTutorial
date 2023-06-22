@@ -1,5 +1,7 @@
 ﻿using DBApiTutorial.Features.Employees.DTO;
 using DBApiTutorial.Features.Employees.Request;
+using DBApiTutorial.Features.Offices.DTO;
+using DBApiTutorial.Features.Offices.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,22 +19,72 @@ namespace DBApiTutorial.Features.Offices
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmployeeWithOfficesDto>>> GetEmployees()
+        public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetEmployees()
         {
             var result = await _mediator.Send(new GetEmployees.Query());
+            if (result == null)
+            {
+                return NotFound();
+            }
             return Ok(result);
 
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<EmployeeWithOfficesDto>> GetEmployeeById(int id, bool includeOffices = false)
+        public async Task<ActionResult> GetEmployeeById(int id, bool includeOffices = false)
         {
             if (includeOffices)
             {
-                return Ok(await _mediator.Send(new GetEmployeeByIdWithOffices.Query() { Id = id }));
+                var result = await _mediator.Send(new GetEmployeeByIdWithOffices.Query() { Id = id });
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            else
+            {
+                var result = await _mediator.Send(new GetEmployeeById.Query() { Id = id });
+                if (result == null) 
+                { 
+                    return NotFound(); 
+                }
+                return Ok(result);
             }
 
-            return Ok(await _mediator.Send(new GetEmployeeById.Query() { Id = id }));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<EmployeeDto>> CreateEmployee([FromBody] EmployeeCreateDto employeeToCreate)
+        {
+            var result = await _mediator.Send(new CreateEmployee.Command() { Employee = employeeToCreate });
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Created($"employees/{result.Id}", result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateEmployee(int id, [FromBody] EmployeeUpdateDto employeeToUpdate)
+        {
+            var result = await _mediator.Send(new UpdateEmployee.Command() { Id = id, Employee = employeeToUpdate });
+            if (result == -1)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteOffice(int id)
+        {
+            var result = await _mediator.Send(new DeleteEmployee.Command() { Id = id });
+            if (result == -1)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
 }

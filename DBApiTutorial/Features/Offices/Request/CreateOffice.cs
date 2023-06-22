@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using DBApiTutorial.Domain.Entity;
 using DBApiTutorial.Features.Offices.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DBApiTutorial.Features.Offices.Request

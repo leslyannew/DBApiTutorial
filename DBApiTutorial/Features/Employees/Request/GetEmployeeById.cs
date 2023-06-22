@@ -8,13 +8,13 @@ namespace DBApiTutorial.Features.Employees.Request
 {
     public class GetEmployeeById
     {
-        public class Query : IRequest<IEnumerable<EmployeeDto>>
+        public class Query : IRequest<EmployeeDto?>
         {
             public int Id { get; set; }
         }
 
 
-        public class Handler : IRequestHandler<Query, IEnumerable<EmployeeDto>>
+        public class Handler : IRequestHandler<Query, EmployeeDto?>
         {
             private readonly OrgDBContext _context;
             private readonly IMapper _mapper;
@@ -26,11 +26,14 @@ namespace DBApiTutorial.Features.Employees.Request
             }
 
 
-            public async Task<IEnumerable<EmployeeDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<EmployeeDto?> Handle(Query request, CancellationToken cancellationToken)
             {
-                var employees = await _context.Employees.Where(e => e.Id == request.Id).OrderBy(e => e.Id).ToListAsync();
-
-                return _mapper.Map<IEnumerable<EmployeeDto>>(employees);
+                var employee = await _context.Employees.Where(e => e.Id == request.Id).FirstOrDefaultAsync();
+                //if(employee == null)
+                //{
+                //    return null;
+                //}
+                return _mapper.Map<EmployeeDto>(employee);
             }
         }
 
