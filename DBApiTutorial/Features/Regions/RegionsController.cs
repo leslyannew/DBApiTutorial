@@ -25,10 +25,10 @@ namespace DBApiTutorial.Features.Regions
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetRegion(int id)
+        public async Task<ActionResult<RegionDto>> GetRegion(int id)
         {
             var result = await _mediator.Send(new GetRegionById.Query() { Id = id });
-            
+
             if (result == null)
             {
                 return NotFound();

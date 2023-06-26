@@ -11,13 +11,13 @@ namespace DBApiTutorial.Features.Regions.Request
 {
     public class GetRegions
     {
-        public class Query : IRequest<IEnumerable<RegionDto>>
+        public class Query : IRequest<IEnumerable<RegionDto>?>
         {
 
         }
 
         
-        public class Handler : IRequestHandler<Query, IEnumerable<RegionDto>>
+        public class Handler : IRequestHandler<Query, IEnumerable<RegionDto>?>
         {
             private readonly OrgDBContext _context;
             private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace DBApiTutorial.Features.Regions.Request
             }
             
 
-            public async Task<IEnumerable<RegionDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<RegionDto>?> Handle(Query request, CancellationToken cancellationToken)
             {
                 var regions = await _context.Regions.OrderBy(r => r.Id).ToListAsync();
                 return _mapper.Map<IEnumerable<RegionDto>>(regions);

@@ -8,13 +8,13 @@ namespace DBApiTutorial.Features.Regions.Request
 {
     public class CreateRegion
     {
-        public class Command : IRequest<RegionDto>
+        public class Command : IRequest<RegionDto?>
         {
             public RegionCreateDto Region { get; set; } = new RegionCreateDto();
         }
 
         
-        public class Handler : IRequestHandler<Command, RegionDto>
+        public class Handler : IRequestHandler<Command, RegionDto?>
         {
             private readonly OrgDBContext _context;
             private readonly IMapper _mapper;
@@ -25,7 +25,7 @@ namespace DBApiTutorial.Features.Regions.Request
                _mapper = mapper;
             }
             
-            public async Task<RegionDto> Handle(Command command, CancellationToken cancellationToken)
+            public async Task<RegionDto?> Handle(Command command, CancellationToken cancellationToken)
             {
                 var regionEntity = _mapper.Map<Region>(command.Region);
                 await _context.Regions.AddAsync(regionEntity);
