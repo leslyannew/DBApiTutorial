@@ -61,16 +61,29 @@ namespace DBApiTutorial.Test.Features.Regions
             Assert.IsType<CreatedResult>(regionResult.Result);
         }
 
+        [Fact]
         public async void UpdateRegion_ShouldReturnUpdatedRegion()
         {
-            var regionToCreate = _fixture.Create<RegionCreateDto>();
-            var expectedResult = _fixture.Create<ActionResult<RegionDto>>();
+            var region = _fixture.Create<RegionDto>();
+            var regionToUpdate = _fixture.Create<RegionUpdateDto>();
 
-            _mediatorMock.Setup(x => x.Send(It.IsAny<CreateRegion.Command>(), default)).ReturnsAsync(expectedResult.Value);
+            _mediatorMock.Setup(x => x.Send(It.IsAny<UpdateRegion.Command>(), default)).ReturnsAsync(1);
             
-            var regionResult = await _regionsController.CreateRegion(regionToCreate);
+            var regionResult = await _regionsController.UpdateRegion(region.Id, regionToUpdate);
 
-            Assert.IsType<CreatedResult>(regionResult.Result);
+            Assert.IsType<NoContentResult>(regionResult);
+        }
+
+        [Fact]
+        public async void DeleteRegion_ShouldDeleteRegion()
+        {
+            var regionToDelete = _fixture.Create<RegionDto>();
+
+            _mediatorMock.Setup(x => x.Send(It.IsAny<DeleteRegion.Command>(), default)).ReturnsAsync(1);
+            
+            var regionResult = await _regionsController.DeleteRegion(regionToDelete.Id);
+
+            Assert.IsType<NoContentResult>(regionResult);
         }
 
     }
