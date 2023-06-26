@@ -1,1 +1,4 @@
-﻿DBCC CHECKIDENT ('Offices', RESEED, 2)
+﻿--DBCC CHECKIDENT ('Regions', RESEED, 5)
+--DBCC CHECKIDENT ('Offices', RESEED, 2)
+--DBCC CHECKIDENT ('OfficeEmployees', RESEED, 0)
+DBCC CHECKIDENT ('Employees', RESEED, 5)

@@ -29,10 +29,10 @@ namespace DBApiTutorial.Features.Employees.Request
             public async Task<EmployeeDto?> Handle(Query request, CancellationToken cancellationToken)
             {
                 var employee = await _context.Employees.Where(e => e.Id == request.Id).FirstOrDefaultAsync();
-                //if(employee == null)
-                //{
-                //    return null;
-                //}
+                if (employee == null)
+                {
+                    return null;
+                }
                 return _mapper.Map<EmployeeDto>(employee);
             }
         }

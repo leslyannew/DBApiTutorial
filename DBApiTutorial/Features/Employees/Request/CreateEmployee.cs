@@ -29,8 +29,25 @@ namespace DBApiTutorial.Features.Employees.Request
             public async Task<EmployeeDto?> Handle(Command command, CancellationToken cancellationToken)
             {
                 var employeeEntity = _mapper.Map<Employee>(command.Employee);
+                //var officeIds = command.Employee.OfficesIds;
+
                 await _context.Employees.AddAsync(employeeEntity);
                 await _context.SaveChangesAsync();
+
+                //if (officeIds != null) 
+                //{
+                //    foreach (int officeId in officeIds)
+                //    {
+                //        await _context.OfficeEmployees.AddAsync
+                //        (new OfficeEmployee
+                //        {
+                //            EmployeeId = employeeEntity.Id,
+                //            OfficeId = officeId
+                //        });
+                //    }
+                //}
+                await _context.SaveChangesAsync();
+
                 return _mapper.Map<EmployeeDto>(employeeEntity);
             }
         }

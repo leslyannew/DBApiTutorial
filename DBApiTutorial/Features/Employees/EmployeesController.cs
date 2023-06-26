@@ -31,27 +31,14 @@ namespace DBApiTutorial.Features.Offices
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetEmployeeById(int id, bool includeOffices = false)
+        public async Task<ActionResult> GetEmployeeById(int id)
         {
-            if (includeOffices)
-            {
-                var result = await _mediator.Send(new GetEmployeeByIdWithOffices.Query() { Id = id });
-                if (result == null)
-                {
-                    return NotFound();
-                }
-                return Ok(result);
+            var result = await _mediator.Send(new GetEmployeeById.Query() { Id = id });
+            if (result == null) 
+            { 
+                return NotFound(); 
             }
-            else
-            {
-                var result = await _mediator.Send(new GetEmployeeById.Query() { Id = id });
-                if (result == null) 
-                { 
-                    return NotFound(); 
-                }
-                return Ok(result);
-            }
-
+            return Ok(result);
         }
 
         [HttpPost]
@@ -77,7 +64,7 @@ namespace DBApiTutorial.Features.Offices
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteOffice(int id)
+        public async Task<ActionResult> DeleteEmployee(int id)
         {
             var result = await _mediator.Send(new DeleteEmployee.Command() { Id = id });
             if (result == -1)

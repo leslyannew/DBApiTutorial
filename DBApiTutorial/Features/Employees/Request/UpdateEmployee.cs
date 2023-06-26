@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DBApiTutorial.Domain.Entity;
 using DBApiTutorial.Features.Employees.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;
@@ -28,6 +29,7 @@ namespace DBApiTutorial.Features.Employees.Request
 
             public async Task<int> Handle(Command command, CancellationToken cancellationToken)
             {
+                
                 var employeeEntity = await _context.Employees.Where(e => e.Id == command.Id).FirstOrDefaultAsync();
                 if (employeeEntity == null)
                 {

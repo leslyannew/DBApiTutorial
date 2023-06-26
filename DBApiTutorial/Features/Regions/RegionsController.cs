@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using DBApiTutorial.Features.Regions.DTO;
+﻿using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Features.Regions.Request;
-using DBApiTutorial.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
