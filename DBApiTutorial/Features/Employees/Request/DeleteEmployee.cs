@@ -13,22 +13,25 @@ namespace DBApiTutorial.Features.Employees.Request
 
         public class Handler : IRequestHandler<Command, int>
         {
-            private readonly OrgDBContext _context;
+            private readonly DBContext _context;
 
-            public Handler(OrgDBContext context)
+            public Handler(DBContext context)
             {
                 _context = context;
             }
 
             public async Task<int> Handle(Command command, CancellationToken cancellationToken)
             {
-                var employeeEntity = await _context.Employees.Where(e => e.Id == command.Id).FirstOrDefaultAsync();
+                var employeeEntity = await _context.Employees
+                    .Where(r => r.Id == command.Id)
+                    .FirstOrDefaultAsync();
                 if (employeeEntity == null)
                 {
-                    return -1;
+                    throw new ArgumentNullException();
                 }
                 _context.Employees.Remove(employeeEntity);
-                return await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+                return command.Id;
             }
         }
 

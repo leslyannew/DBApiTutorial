@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBApiTutorial.Migrations
 {
-    [DbContext(typeof(OrgDBContext))]
+    [DbContext(typeof(DBContext))]
     [Migration("20230620144934_ApiTutorialDBSeed")]
     partial class ApiTutorialDBSeed
     {

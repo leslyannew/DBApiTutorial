@@ -6,6 +6,7 @@ using DBApiTutorial.Features.Regions.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Swashbuckle.SwaggerUi;
 using System.Collections.Generic;
 
 namespace DBApiTutorial.Test.Features.Regions
@@ -28,7 +29,7 @@ namespace DBApiTutorial.Test.Features.Regions
         {
             var expectedResult = _fixture.Create<ActionResult<IEnumerable<RegionDto>>>();
 
-            _mediatorMock.Setup(x => x.Send(It.IsAny<GetRegions.Query>(), default)).ReturnsAsync(expectedResult.Value);
+            _mediatorMock.Setup(x => x.Send(It.IsAny<GetRegions.Query>(), default)).ReturnsAsync(expectedResult);
 
             var regionsResult = await _regionsController.GetRegions();
 
@@ -39,9 +40,9 @@ namespace DBApiTutorial.Test.Features.Regions
         public async void GetRegionById_ShouldReturnRegionOfId()
         {
             var expectedResult = _fixture.Create<ActionResult<RegionDto?>>();
-            int regionId = regionId = expectedResult.Value.Id;
+            int regionId = expectedResult.Value.Id;
 
-            _mediatorMock.Setup(x => x.Send(It.IsAny<GetRegionById.Query>(), default)).ReturnsAsync(expectedResult.Value);
+            _mediatorMock.Setup(x => x.Send(It.IsAny<GetRegionById.Query>(), default)).ReturnsAsync(expectedResult);
 
             var regionResult = await _regionsController.GetRegion(regionId);
 
@@ -54,7 +55,7 @@ namespace DBApiTutorial.Test.Features.Regions
             var regionToCreate = _fixture.Create<RegionCreateDto>();
             var expectedResult = _fixture.Create<ActionResult<RegionDto>>();
 
-            _mediatorMock.Setup(x => x.Send(It.IsAny<CreateRegion.Command>(), default)).ReturnsAsync(expectedResult.Value);
+            _mediatorMock.Setup(x => x.Send(It.IsAny<CreateRegion.Command>(), default)).ReturnsAsync(expectedResult);
             
             var regionResult = await _regionsController.CreateRegion(regionToCreate);
 
@@ -65,25 +66,26 @@ namespace DBApiTutorial.Test.Features.Regions
         public async void UpdateRegion_ShouldReturnUpdatedRegion()
         {
             var region = _fixture.Create<RegionDto>();
-            var regionToUpdate = _fixture.Create<RegionUpdateDto>();
+            var updatedRegion = _fixture.Create<RegionUpdateDto>();
+            var expectedResult = _fixture.Create<ActionResult<RegionDto>>();
 
-            _mediatorMock.Setup(x => x.Send(It.IsAny<UpdateRegion.Command>(), default)).ReturnsAsync(1);
-            
-            var regionResult = await _regionsController.UpdateRegion(region.Id, regionToUpdate);
+            _mediatorMock.Setup(x => x.Send(It.IsAny<UpdateRegion.Command>(), default)).ReturnsAsync(expectedResult);
 
-            Assert.IsType<NoContentResult>(regionResult);
+            ActionResult<RegionDto> regionResult = await _regionsController.UpdateRegion(region.Id, updatedRegion);
+
+            Assert.IsType<OkObjectResult>(regionResult.Result);
         }
 
         [Fact]
         public async void DeleteRegion_ShouldDeleteRegion()
         {
-            var regionToDelete = _fixture.Create<RegionDto>();
+            var expectedResult = _fixture.Create<ActionResult<RegionDto>>();
 
-            _mediatorMock.Setup(x => x.Send(It.IsAny<DeleteRegion.Command>(), default)).ReturnsAsync(1);
+            _mediatorMock.Setup(x => x.Send(It.IsAny<DeleteRegion.Command>(), default)).ReturnsAsync(expectedResult.Value.Id);
             
-            var regionResult = await _regionsController.DeleteRegion(regionToDelete.Id);
+            var regionResult = await _regionsController.DeleteRegion(expectedResult.Value.Id);
 
-            Assert.IsType<NoContentResult>(regionResult);
+            Assert.IsType<OkObjectResult>(regionResult.Result);
         }
 
     }

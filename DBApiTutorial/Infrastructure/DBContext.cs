@@ -5,7 +5,7 @@ using System.Reflection.Metadata;
 
 namespace DBApiTutorial.Infrastructure
 {
-    public class OrgDBContext : DbContext
+    public class DBContext : DbContext
     {
         
         public DbSet<Region> Regions { get; set; }
@@ -13,14 +13,15 @@ namespace DBApiTutorial.Infrastructure
         public DbSet<OfficeEmployee> OfficeEmployees { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
-        public OrgDBContext(DbContextOptions<OrgDBContext> options) : base(options) 
+        public DBContext(DbContextOptions<DBContext> options) : base(options) 
         {
 
         }
 
 
         protected override void OnModelCreating(ModelBuilder mb)
-        {
+        {       
+
             mb.Entity<Office>()
                 .HasOne<Region>()
                 .WithOne();

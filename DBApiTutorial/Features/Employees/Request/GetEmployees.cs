@@ -1,36 +1,40 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DBApiTutorial.Features.Employees.DTO;
+using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DBApiTutorial.Features.Employees.Request
 {
     public class GetEmployees
     {
-        public class Query : IRequest<IEnumerable<EmployeeDto>>
+        public class Query : IRequest<ActionResult<IEnumerable<EmployeeDto>>>
         {
 
         }
 
 
-        public class Handler : IRequestHandler<Query, IEnumerable<EmployeeDto>>
+        public class Handler : IRequestHandler<Query, ActionResult<IEnumerable<EmployeeDto>>>
         {
-            private readonly OrgDBContext _context;
+            private readonly DBContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(OrgDBContext context, IMapper mapper)
+            public Handler(DBContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
 
 
-            public async Task<IEnumerable<EmployeeDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<ActionResult<IEnumerable<EmployeeDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var employees = await _context.Employees.OrderBy(o => o.Id).ToListAsync();
-
-                return _mapper.Map<IEnumerable<EmployeeDto>>(employees);
+                return await _context.Employees
+                    .AsNoTracking()
+                    .ProjectTo<EmployeeDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync();
             }
         }
 

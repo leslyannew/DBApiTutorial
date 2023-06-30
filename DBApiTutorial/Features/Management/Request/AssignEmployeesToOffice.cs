@@ -18,10 +18,10 @@ namespace DBApiTutorial.Features.Employees.Request
 
         public class Handler : IRequestHandler<Command, int>
         {
-            private readonly OrgDBContext _context;
+            private readonly DBContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(OrgDBContext context, IMapper mapper)
+            public Handler(DBContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;

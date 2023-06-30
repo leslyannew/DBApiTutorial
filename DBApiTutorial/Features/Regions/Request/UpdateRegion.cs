@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -9,33 +11,36 @@ namespace DBApiTutorial.Features.Regions.Request
 {
     public class UpdateRegion
     {
-        public class Command : IRequest<int>
+        public class Command : IRequest<ActionResult<RegionDto>>
         {
             public int Id { get; set; } 
             public RegionUpdateDto Region { get; set; } = new RegionUpdateDto();
         }
 
         
-        public class Handler : IRequestHandler<Command, int>
+        public class Handler : IRequestHandler<Command, ActionResult<RegionDto>>
         {
-            private readonly OrgDBContext _context;
+            private readonly DBContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(OrgDBContext context, IMapper mapper)
+            public Handler(DBContext context, IMapper mapper)
             {
                _context = context;
                _mapper = mapper;
             }
-            
-            public async Task<int> Handle(Command command, CancellationToken cancellationToken)
+
+            public async Task<ActionResult<RegionDto>> Handle(Command command, CancellationToken cancellationToken)
             {
-                var regionEntity = await _context.Regions.Where(r => r.Id == command.Id).FirstOrDefaultAsync();
+                var regionEntity = await _context.Regions
+                    .Where(r => r.Id == command.Id)
+                    .FirstOrDefaultAsync();
                 if (regionEntity == null)
                 {
-                    return -1;
+                    throw new ArgumentNullException();
                 }
-                _mapper.Map(command.Region, regionEntity);
-                return await _context.SaveChangesAsync();
+                var updatedEntity = _mapper.Map(command.Region, regionEntity);
+                await _context.SaveChangesAsync();
+                return _mapper.Map<RegionDto>(updatedEntity);
             }
         }
         

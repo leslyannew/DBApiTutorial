@@ -1,3 +1,7 @@
+using AutoMapper;
+using DBApiTutorial.Features.Employees;
+using DBApiTutorial.Features.Offices;
+using DBApiTutorial.Features.Regions;
 using DBApiTutorial.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,17 +16,19 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<OrgDBContext>(options => 
+builder.Services.AddDbContext<DBContext>(options => 
     options.UseSqlServer(builder.Configuration["ConnectionStrings:ApiTutorialDB"]));
 
-/*
+
 var mapperConfig = new MapperConfiguration(mc =>
 {
+    mc.AddProfile(new RegionProfile());
     mc.AddProfile(new OfficeProfile());
+    mc.AddProfile(new EmployeeProfile());
 });
 
 IMapper _mapper = mapperConfig.CreateMapper();
-*/
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());

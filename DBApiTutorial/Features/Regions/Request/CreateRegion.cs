@@ -3,29 +3,30 @@ using DBApiTutorial.Domain.Entity;
 using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DBApiTutorial.Features.Regions.Request
 {
     public class CreateRegion
     {
-        public class Command : IRequest<RegionDto?>
+        public class Command : IRequest<ActionResult<RegionDto>>
         {
-            public RegionCreateDto Region { get; set; } = new RegionCreateDto();
+            public RegionCreateDto Region { get; set; }
         }
 
         
-        public class Handler : IRequestHandler<Command, RegionDto?>
+        public class Handler : IRequestHandler<Command, ActionResult<RegionDto>>
         {
-            private readonly OrgDBContext _context;
+            private readonly DBContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(OrgDBContext context, IMapper mapper)
+            public Handler(DBContext context, IMapper mapper)
             {
                _context = context;
                _mapper = mapper;
             }
             
-            public async Task<RegionDto?> Handle(Command command, CancellationToken cancellationToken)
+            public async Task<ActionResult<RegionDto>> Handle(Command command, CancellationToken cancellationToken)
             {
                 var regionEntity = _mapper.Map<Region>(command.Region);
                 await _context.Regions.AddAsync(regionEntity);

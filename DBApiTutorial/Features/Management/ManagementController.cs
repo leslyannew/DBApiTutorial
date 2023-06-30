@@ -17,11 +17,6 @@ namespace DBApiTutorial.Features.OfficeEmployees
             _mediator = mediator;
         }
 
-        /// <summary>
-        /// Get the Offices a certain Employee works in.
-        /// </summary>
-        /// <param name="employeeId"></param>
-        /// <returns></returns>
         [HttpGet("{employeeId}/offices")]
         public async Task<ActionResult> GetOfficesByEmployeeId(int employeeId)
         {

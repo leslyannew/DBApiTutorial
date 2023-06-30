@@ -1,39 +1,46 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DBApiTutorial.Features.Employees.DTO;
+using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DBApiTutorial.Features.Employees.Request
 {
     public class GetEmployeeById
     {
-        public class Query : IRequest<EmployeeDto?>
+        public class Query : IRequest<ActionResult<EmployeeDto>>
         {
             public int Id { get; set; }
         }
 
 
-        public class Handler : IRequestHandler<Query, EmployeeDto?>
+        public class Handler : IRequestHandler<Query, ActionResult<EmployeeDto>>
         {
-            private readonly OrgDBContext _context;
+            private readonly DBContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(OrgDBContext context, IMapper mapper)
+            public Handler(DBContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
 
 
-            public async Task<EmployeeDto?> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<ActionResult<EmployeeDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var employee = await _context.Employees.Where(e => e.Id == request.Id).FirstOrDefaultAsync();
+                var employee = await _context.Employees
+                    .Where(r => r.Id == request.Id)
+                    .AsNoTracking()
+                    .ProjectTo<EmployeeDto>(_mapper.ConfigurationProvider)
+                    .FirstOrDefaultAsync();
                 if (employee == null)
                 {
-                    return null;
+                    throw new ArgumentNullException();
                 }
-                return _mapper.Map<EmployeeDto>(employee);
+                return employee;
             }
         }
 

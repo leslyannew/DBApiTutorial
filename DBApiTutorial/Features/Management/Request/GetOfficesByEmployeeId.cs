@@ -19,10 +19,10 @@ namespace DBApiTutorial.Features.OfficeEmployees.Request
 
         public class Handler : IRequestHandler<Query, IEnumerable<OfficeDto>?>
         {
-            private readonly OrgDBContext _context;
+            private readonly DBContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(OrgDBContext context, IMapper mapper)
+            public Handler(DBContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;

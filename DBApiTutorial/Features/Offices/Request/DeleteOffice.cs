@@ -13,9 +13,9 @@ namespace DBApiTutorial.Features.Offices.Request
 
         public class Handler : IRequestHandler<Command, int>
         {
-            private readonly OrgDBContext _context;
+            private readonly DBContext _context;
 
-            public Handler(OrgDBContext context)
+            public Handler(DBContext context)
             {
                 _context = context;
             }
@@ -25,7 +25,7 @@ namespace DBApiTutorial.Features.Offices.Request
                 var officeEntity = await _context.Offices.Where(r => r.Id == command.Id).FirstOrDefaultAsync();
                 if (officeEntity == null)
                 {
-                    return -1;
+                    throw new ArgumentNullException();
                 }
                 _context.Offices.Remove(officeEntity);
                 return await _context.SaveChangesAsync();

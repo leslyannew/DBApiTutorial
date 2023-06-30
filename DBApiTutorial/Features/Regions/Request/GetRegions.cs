@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DBApiTutorial.Domain.Entity;
 using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Infrastructure;
@@ -11,28 +12,30 @@ namespace DBApiTutorial.Features.Regions.Request
 {
     public class GetRegions
     {
-        public class Query : IRequest<IEnumerable<RegionDto>?>
+        public class Query : IRequest<ActionResult<IEnumerable<RegionDto>>>
         {
 
         }
 
         
-        public class Handler : IRequestHandler<Query, IEnumerable<RegionDto>?>
+        public class Handler : IRequestHandler<Query, ActionResult<IEnumerable<RegionDto>>>
         {
-            private readonly OrgDBContext _context;
+            private readonly DBContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(OrgDBContext context, IMapper mapper)
+            public Handler(DBContext context, IMapper mapper)
             {
                _context = context;
                _mapper = mapper;
             }
             
 
-            public async Task<IEnumerable<RegionDto>?> Handle(Query request, CancellationToken cancellationToken)
-            {
-                var regions = await _context.Regions.OrderBy(r => r.Id).ToListAsync();
-                return _mapper.Map<IEnumerable<RegionDto>>(regions);
+            public async Task<ActionResult<IEnumerable<RegionDto>>> Handle(Query request, CancellationToken cancellationToken)
+            { 
+                return await _context.Regions
+                    .AsNoTracking()
+                    .ProjectTo<RegionDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync();
             }
         }
         

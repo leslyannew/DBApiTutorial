@@ -1,7 +1,9 @@
-﻿using DBApiTutorial.Features.Regions.DTO;
+﻿using DBApiTutorial.Domain.Entity;
+using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Features.Regions.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace DBApiTutorial.Features.Regions
 {
@@ -19,51 +21,75 @@ namespace DBApiTutorial.Features.Regions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RegionDto>>> GetRegions()
         {
-            var result = await _mediator.Send(new GetRegions.Query());
-            return Ok(result);
-
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<RegionDto>> GetRegion(int id)
-        {
-            var result = await _mediator.Send(new GetRegionById.Query() { Id = id });
-
-            if (result == null)
+            try
+            {
+                var result = await _mediator.Send(new GetRegions.Query());
+                return Ok(result);
+            } 
+            catch (ArgumentNullException)
             {
                 return NotFound();
             }
+        }
 
-            return Ok(result);
+        [HttpGet("{id}", Name = "regions")]
+        public async Task<ActionResult<RegionDto>> GetRegion(int id)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetRegionById.Query() { Id = id });
+                return Ok(result);
+            } 
+            catch (ArgumentNullException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
-        public async Task<ActionResult<RegionDto>> CreateRegion([FromBody] RegionCreateDto regionToCreate)
-        {
-            var result = await _mediator.Send(new CreateRegion.Command() { Region = regionToCreate });
-            return Created($"regions/{result.Id}", result);
+        public async Task<ActionResult<RegionDto>> CreateRegion(
+            [FromBody][Required(ErrorMessage = "Provide a Region to create.")] RegionCreateDto region)
+        { 
+            try
+            {
+                var result = await _mediator.Send(new CreateRegion.Command() { Region = region });
+                return Created($"regions/{result.Value.Id}", result);
+            }
+            catch (ArgumentNullException)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateRegion(int id, [FromBody] RegionUpdateDto regionToUpdate)
+        public async Task<ActionResult<RegionDto>> UpdateRegion(int id,
+            [FromBody][Required(ErrorMessage = "Provide an updated Region.")] RegionUpdateDto region)
         {
-            var result = await _mediator.Send(new UpdateRegion.Command() { Id = id, Region = regionToUpdate });
-            if (result == -1)
+            try
+            {
+                var result = await _mediator.Send(new UpdateRegion.Command() { Id = id, Region = region });
+                return Ok(result);
+            } 
+            catch (ArgumentNullException)
             {
                 return NotFound();
             }
-            return NoContent();
+            
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteRegion(int id)
+        public async Task<ActionResult<RegionDto>> DeleteRegion(int id)
         {
-            var result = await _mediator.Send(new DeleteRegion.Command() { Id = id });
-            if (result == -1)
+            try
+            {
+                var result = await _mediator.Send(new DeleteRegion.Command() { Id = id });
+                return Ok($"Removed Region {result}");
+            }
+            catch (ArgumentNullException)
             {
                 return NotFound();
             }
-            return NoContent();
+
         }
     }
 }

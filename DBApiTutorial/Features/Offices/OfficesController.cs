@@ -1,11 +1,11 @@
-﻿using DBApiTutorial.Features.Offices.DTO;
+﻿using DBApiTutorial.Domain.Entity;
+using DBApiTutorial.Features.Offices.DTO;
 using DBApiTutorial.Features.Offices.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DBApiTutorial.Features.Offices
 {
-    //[Route("api/Regions/{regionId}/[controller]")]
     [Route("api/[controller]")]
     [ApiController]
     public class OfficesController : ControllerBase
@@ -20,52 +20,71 @@ namespace DBApiTutorial.Features.Offices
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OfficeDto>>> GetOffices()
         {
-            var result = await _mediator.Send(new GetOffices.Query());
-            return Ok(result);
+            try
+            {
+                var result = await _mediator.Send(new GetOffices.Query());
+                return Ok(result);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOffice(int id)
         {
-            var result = await _mediator.Send(new GetOfficeById.Query() { Id = id });
-            if (result == null)
+            try
+            {
+                var result = await _mediator.Send(new GetOfficeById.Query() { Id = id });
+                return Ok(result);
+            } 
+            catch (ArgumentNullException)
             {
                 return NotFound();
             }
-            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<OfficeDto>> CreateOffice([FromBody] OfficeCreateDto officeToCreate)
+        public async Task<ActionResult<OfficeDto>> CreateOffice([FromBody] OfficeCreateDto office)
         {
-            var result = await _mediator.Send(new CreateOffice.Command() { Office =  officeToCreate });
-            if(result == null)
+            try
             {
-                return BadRequest("Office could not be created.");
+                var result = await _mediator.Send(new CreateOffice.Command() { Office = office });
+                return Created($"offices/{result.Value.Id}", result);
             }
-            return Created($"offices/{result.Id}", result);
+            catch (ArgumentNullException)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateOffice(int id, [FromBody] OfficeUpdateDto officeToUpdate)
         {
-            var result = await _mediator.Send(new UpdateOffice.Command() { Id = id, Office = officeToUpdate });
-            if (result == -1)
+            try 
+            {
+                var result = await _mediator.Send(new UpdateOffice.Command() { Id = id, Office = officeToUpdate });
+                return Ok(result);
+            } 
+            catch
             {
                 return NotFound();
             }
-            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteOffice(int id)
         {
-            var result = await _mediator.Send(new DeleteOffice.Command() { Id = id });
-            if (result == -1)
+            try
+            {
+                var result = await _mediator.Send(new DeleteOffice.Command() { Id = id });
+                return Ok($"Removed Office {result}");
+            } 
+            catch
             {
                 return NotFound();
             }
-            return NoContent();
         }
     }
 }
