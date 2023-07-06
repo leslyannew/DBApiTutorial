@@ -1,13 +1,10 @@
 using AutoFixture;
-using DBApiTutorial.Domain.Entity;
 using DBApiTutorial.Features.Regions;
 using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Features.Regions.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Swashbuckle.SwaggerUi;
-using System.Collections.Generic;
 
 namespace DBApiTutorial.Test.Features.Regions
 {

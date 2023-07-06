@@ -5,7 +5,7 @@ using DBApiTutorial.Features.Regions.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DBApiTutorial.Features.Offices
+namespace DBApiTutorial.Features.Employees
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -34,7 +34,7 @@ namespace DBApiTutorial.Features.Offices
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetEmployeeById(int id)
+        public async Task<ActionResult<EmployeeDto>> GetEmployeeById(int id)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace DBApiTutorial.Features.Offices
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateEmployee(int id, [FromBody] EmployeeUpdateDto employee)
+        public async Task<ActionResult<EmployeeDto>> UpdateEmployee(int id, [FromBody] EmployeeUpdateDto employee)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace DBApiTutorial.Features.Offices
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteEmployee(int id)
+        public async Task<ActionResult<int>> DeleteEmployee(int id)
         {
             try
             {

@@ -39,7 +39,7 @@ namespace DBApiTutorial.Test.Features.Offices
         [Fact]
         public async void GetOfficeById_ShouldReturnOfficeOfId()
         {
-            var expectedResult = _fixture.Create<ActionResult<OfficeDto?>>();
+            var expectedResult = _fixture.Create<ActionResult<OfficeDto>>();
             int officeId = expectedResult.Value.Id;
 
             _mediatorMock.Setup(x => x.Send(It.IsAny<GetOfficeById.Query>(), default)).ReturnsAsync(expectedResult);
