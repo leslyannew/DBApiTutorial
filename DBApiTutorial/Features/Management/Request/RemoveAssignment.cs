@@ -9,14 +9,14 @@ namespace DBApiTutorial.Features.Employees.Request
 {
     public class RemoveAssignment
     {
-        public class Command : IRequest<int>
+        public class Command : IRequest<string>
         {
             public int EmployeeId { get; set; }
             public int OfficeId { get; set; } 
         }
 
 
-        public class Handler : IRequestHandler<Command, int>
+        public class Handler : IRequestHandler<Command, string>
         {
             private readonly DBContext _context;
             private readonly IMapper _mapper;
@@ -27,15 +27,16 @@ namespace DBApiTutorial.Features.Employees.Request
                 _mapper = mapper;
             }
 
-            public async Task<int> Handle(Command command, CancellationToken cancellationToken)
+            public async Task<string> Handle(Command command, CancellationToken cancellationToken)
             {
-                var offices = _context.OfficeEmployees.Where(oe => oe.OfficeId == command.OfficeId && oe.EmployeeId == command.EmployeeId);
-                foreach (OfficeEmployee office in offices)
+                var assignment = _context.OfficeEmployees.Where(oe => oe.OfficeId == command.OfficeId && oe.EmployeeId == command.EmployeeId).FirstOrDefault();
+                if (assignment == null) 
                 {
-                    _context.OfficeEmployees.Remove(office);
+                    throw new ArgumentNullException();
                 }
-
-                return await _context.SaveChangesAsync();
+                _context.OfficeEmployees.Remove(assignment);
+                await _context.SaveChangesAsync();
+                return $"Office {command.OfficeId} and Employee {command.EmployeeId}";
             }
         }
     }

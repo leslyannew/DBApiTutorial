@@ -20,56 +20,73 @@ namespace DBApiTutorial.Features.OfficeEmployees
         [HttpGet("{employeeId}/offices")]
         public async Task<ActionResult> GetOfficesByEmployeeId(int employeeId)
         {
-            var offices = await _mediator.Send(new GetOfficesByEmployeeId.Query() { Id = employeeId });
-            if (offices == null)
+            try
+            {
+                var offices = await _mediator.Send(new GetOfficesByEmployeeId.Query() { Id = employeeId });
+                return Ok(offices);
+            }
+            catch (ArgumentNullException)
             {
                 return NotFound();
             }
-            return Ok(offices);
+            
         }
 
         [HttpGet("{officeId}/employees")]
         public async Task<ActionResult> GetEmployeesByOfficeId(int officeId)
         {
-            var employees = await _mediator.Send(new GetEmployeesByOfficeId.Query() { Id = officeId });
-            if (employees == null)
+            try
+            {
+                var employees = await _mediator.Send(new GetEmployeesByOfficeId.Query() { Id = officeId });
+                return Ok(employees);
+            }
+            catch (ArgumentNullException)
             {
                 return NotFound();
             }
-            return Ok(employees);
         }
 
         [HttpPost("{employeeId}/offices")]
         public async Task<ActionResult> AssignOfficesToEmployee(int employeeId, int[] officeIds)
         {
-            var result = await _mediator.Send(new AssignOfficesToEmployee.Command() { EmployeeId = employeeId, OfficeIds = officeIds });
-            if (result == -1)
+            try
             {
-                return NotFound();
+                var result = await _mediator.Send(new AssignOfficesToEmployee.Command() { EmployeeId = employeeId, OfficeIds = officeIds });
+                return Ok($"Employee {result} updated.");
             }
-            return NoContent();
+            catch (ArgumentNullException)
+            {
+                return BadRequest();
+            }
+            
         }
 
         [HttpPost("{officeId}/employees")]
         public async Task<ActionResult> AssignEmployeesToOffice(int officeId, int[] employeeIds)
-        {
-            var result = await _mediator.Send(new AssignEmployeesToOffice.Command() { OfficeId = officeId, EmployeeIds = employeeIds });
-            if (result == -1)
+        {           
+            try
             {
-                return NotFound();
+                var result = await _mediator.Send(new AssignEmployeesToOffice.Command() { OfficeId = officeId, EmployeeIds = employeeIds });
+                return Ok($"Office {result} updated.");
             }
-            return NoContent();
+            catch (ArgumentNullException)
+            {
+                return BadRequest();
+            }
         }
 
-        [HttpDelete("{employeeId}-{officeId}")]
-        public async Task<ActionResult> RemoveAssignment(int employeeId, int officeId)
+        [HttpDelete("{officeId}-{employeeId}")]
+        public async Task<ActionResult> RemoveAssignment(int officeId, int employeeId)
         {
-            var result = await _mediator.Send(new RemoveAssignment.Command() { EmployeeId = employeeId, OfficeId = officeId});
-            if (result == -1)
+            try
+            {
+                var result = await _mediator.Send(new RemoveAssignment.Command() { OfficeId = officeId , EmployeeId = employeeId, });
+                return Ok($"Assignment between {result} removed.");
+            }
+            catch (ArgumentNullException)
             {
                 return NotFound();
             }
-            return NoContent();
         }
     }
 }

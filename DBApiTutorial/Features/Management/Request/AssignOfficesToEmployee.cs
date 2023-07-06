@@ -33,16 +33,24 @@ namespace DBApiTutorial.Features.Employees.Request
                 {
                     if (!_context.OfficeEmployees.Where(oe => oe.OfficeId == officeId && oe.EmployeeId == command.EmployeeId).Any())
                     {
-                        await _context.OfficeEmployees.AddAsync
-                        (new OfficeEmployee
+                        if (_context.Employees.Where(e => e.Id  == command.EmployeeId).Any() && _context.Offices.Where(o => o.Id == officeId).Any())
                         {
-                            EmployeeId = command.EmployeeId,
-                            OfficeId = officeId
-                        });
+                            await _context.OfficeEmployees.AddAsync
+                            (new OfficeEmployee
+                            {
+                                EmployeeId = command.EmployeeId,
+                                OfficeId = officeId
+                            });
+                        }
+                        else
+                        {
+                            throw new ArgumentNullException();
+                        }
+                        
                     }
                 }
-
-                return await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+                return command.EmployeeId;
             }
         }
     }

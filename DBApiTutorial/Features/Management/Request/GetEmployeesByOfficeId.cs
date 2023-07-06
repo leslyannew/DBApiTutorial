@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using DBApiTutorial.Domain.Entity;
 using DBApiTutorial.Features.Employees.DTO;
-using DBApiTutorial.Features.Offices.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DBApiTutorial.Features.OfficeEmployees.Request
 {
@@ -29,7 +29,6 @@ namespace DBApiTutorial.Features.OfficeEmployees.Request
 
             public async Task<IEnumerable<EmployeeDto>?> Handle(Query request, CancellationToken cancellationToken)
             {
-
                 var employeeEntities = await _context.OfficeEmployees
                                 .Where(offEmp => offEmp.OfficeId == request.Id)
                                 .Join(_context.Employees,
@@ -41,11 +40,13 @@ namespace DBApiTutorial.Features.OfficeEmployees.Request
                                     FirstName = emp.FirstName, 
                                     LastName = emp.LastName
 
-                                }).ToListAsync();
+                                })
+                                .AsNoTracking()
+                                .ToListAsync();
 
-                if (employeeEntities.Count == 0)
+                if (employeeEntities.IsNullOrEmpty())
                 {
-                    return null;
+                    throw new ArgumentNullException();
                 }
 
                 return _mapper.Map<IEnumerable<EmployeeDto>>(employeeEntities);

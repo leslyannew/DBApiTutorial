@@ -6,6 +6,7 @@ using DBApiTutorial.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DBApiTutorial.Features.OfficeEmployees.Request
 {
@@ -30,7 +31,6 @@ namespace DBApiTutorial.Features.OfficeEmployees.Request
 
             public async Task<IEnumerable<OfficeDto>?> Handle(Query request, CancellationToken cancellationToken)
             {
-
                 var officeEntities = await _context.OfficeEmployees
                                 .Where(offEmp => offEmp.EmployeeId == request.Id)
                                 .Join(_context.Offices,
@@ -43,11 +43,13 @@ namespace DBApiTutorial.Features.OfficeEmployees.Request
                                     City = off.City,
                                     State = off.State,
                                     Phone = off.Phone
-                                }).ToListAsync();
+                                })
+                                .AsNoTracking()
+                                .ToListAsync();
 
-                if (officeEntities.Count == 0) 
+                if (officeEntities.IsNullOrEmpty()) 
                 {
-                    return null;
+                    throw new ArgumentNullException();
                 }
 
                 return _mapper.Map<IEnumerable<OfficeDto>>(officeEntities);

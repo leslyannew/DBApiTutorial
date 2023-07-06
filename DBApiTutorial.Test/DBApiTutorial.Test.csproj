@@ -25,4 +25,9 @@
     <ProjectReference Include="..\DBApiTutorial\DBApiTutorial.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Employees\" />
+    <Folder Include="Features\Offices\" />
+  </ItemGroup>
+
 </Project>
