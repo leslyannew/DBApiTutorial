@@ -1,6 +1,8 @@
 ﻿using DBApiTutorial.Domain.Entity;
+using DBApiTutorial.Features.Employees.DTO;
 using DBApiTutorial.Features.Employees.Request;
 using DBApiTutorial.Features.OfficeEmployees.Request;
+using DBApiTutorial.Features.Offices.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +20,7 @@ namespace DBApiTutorial.Features.OfficeEmployees
         }
 
         [HttpGet("{employeeId}/offices")]
-        public async Task<ActionResult> GetOfficesByEmployeeId(int employeeId)
+        public async Task<ActionResult<OfficeDto>> GetOfficesByEmployeeId(int employeeId)
         {
             try
             {
@@ -33,7 +35,7 @@ namespace DBApiTutorial.Features.OfficeEmployees
         }
 
         [HttpGet("{officeId}/employees")]
-        public async Task<ActionResult> GetEmployeesByOfficeId(int officeId)
+        public async Task<ActionResult<EmployeeDto>> GetEmployeesByOfficeId(int officeId)
         {
             try
             {
@@ -47,7 +49,7 @@ namespace DBApiTutorial.Features.OfficeEmployees
         }
 
         [HttpPost("{employeeId}/offices")]
-        public async Task<ActionResult> AssignOfficesToEmployee(int employeeId, int[] officeIds)
+        public async Task<ActionResult<int>> AssignOfficesToEmployee(int employeeId, int[] officeIds)
         {
             try
             {
@@ -62,7 +64,7 @@ namespace DBApiTutorial.Features.OfficeEmployees
         }
 
         [HttpPost("{officeId}/employees")]
-        public async Task<ActionResult> AssignEmployeesToOffice(int officeId, int[] employeeIds)
+        public async Task<ActionResult<int>> AssignEmployeesToOffice(int officeId, int[] employeeIds)
         {           
             try
             {
@@ -76,7 +78,7 @@ namespace DBApiTutorial.Features.OfficeEmployees
         }
 
         [HttpDelete("{officeId}-{employeeId}")]
-        public async Task<ActionResult> RemoveAssignment(int officeId, int employeeId)
+        public async Task<ActionResult<string>> RemoveAssignment(int officeId, int employeeId)
         {
             try
             {
