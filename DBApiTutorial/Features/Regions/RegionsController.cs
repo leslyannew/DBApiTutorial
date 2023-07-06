@@ -78,7 +78,7 @@ namespace DBApiTutorial.Features.Regions
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<RegionDto>> DeleteRegion(int id)
+        public async Task<ActionResult<int>> DeleteRegion(int id)
         {
             try
             {

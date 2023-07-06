@@ -32,7 +32,7 @@ namespace DBApiTutorial.Features.Offices
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetOffice(int id)
+        public async Task<ActionResult<OfficeDto>> GetOffice(int id)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace DBApiTutorial.Features.Offices
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateOffice(int id, [FromBody] OfficeUpdateDto officeToUpdate)
+        public async Task<ActionResult<OfficeDto>> UpdateOffice(int id, [FromBody] OfficeUpdateDto officeToUpdate)
         {
             try 
             {
@@ -74,7 +74,7 @@ namespace DBApiTutorial.Features.Offices
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteOffice(int id)
+        public async Task<ActionResult<int>> DeleteOffice(int id)
         {
             try
             {

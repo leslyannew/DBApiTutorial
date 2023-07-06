@@ -28,7 +28,8 @@ namespace DBApiTutorial.Features.Offices.Request
                     throw new ArgumentNullException();
                 }
                 _context.Offices.Remove(officeEntity);
-                return await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+                return command.Id;
             }
         }
 
