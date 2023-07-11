@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/DBApiTutorial.Test/obj/Debug/net6.0/DBApiTutorial.Test.csproj.AssemblyReference.cache
