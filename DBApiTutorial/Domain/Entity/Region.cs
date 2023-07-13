@@ -1,15 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DBApiTutorial.Domain.Entity
 {
-    public class Region
+    public class Region : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [MaxLength(50)]
+        public string RegionNumber { get; set; } = string.Empty;
 
-        [Required]
         [MaxLength(50)]
         public string Name { get; set; } = string.Empty;
 

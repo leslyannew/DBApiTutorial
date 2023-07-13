@@ -1,13 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DBApiTutorial.Domain.Entity
 {
-    public class Office
+    public class Office : BaseEntity
     {
-        public int Id { get; set; }
         public int RegionId { get; set; }
+
+        [MaxLength(50)]
         public string City { get; set; } = string.Empty;
-        public string State { get; set; } = "LA";
+        
+        [MaxLength(2)]
+        public string State { get; set; } = string.Empty;
+
+        [MaxLength(20)]
         public string? Phone { get; set; }
     }
 }

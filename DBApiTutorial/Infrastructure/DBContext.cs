@@ -19,19 +19,19 @@ namespace DBApiTutorial.Infrastructure
         }
 
 
-        protected override void OnModelCreating(ModelBuilder mb)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {       
-
-            mb.Entity<Office>()
+            modelBuilder.Entity<Office>()
                 .HasOne<Region>()
                 .WithOne();
 
-            mb.Entity<Office>()
+            modelBuilder.Entity<Office>()
                 .HasMany<Employee>()
                 .WithMany()
                 .UsingEntity<OfficeEmployee>();
 
-            mb.Entity<Region>().HasData(
+            
+            modelBuilder.Entity<Region>().HasData(
                 new Region()
                 {
                     Id = 1,
@@ -52,7 +52,7 @@ namespace DBApiTutorial.Infrastructure
                     Id = 4,
                     Name = "Iberville"
                 });
-            mb.Entity<Office>().HasData(
+            modelBuilder.Entity<Office>().HasData(
                 new Office()
                 {
                     Id = 1,
@@ -81,7 +81,7 @@ namespace DBApiTutorial.Infrastructure
                     City = "Plaquemine",
                     Phone = "555-444-4444"
                 });
-            mb.Entity<Employee>().HasData(
+            modelBuilder.Entity<Employee>().HasData(
                 new Employee()
                 {
                     Id = 1,
@@ -106,7 +106,7 @@ namespace DBApiTutorial.Infrastructure
                     FirstName = "Kathy",
                     LastName = "McDonald"
                 });
-            mb.Entity<OfficeEmployee>().HasData(
+            modelBuilder.Entity<OfficeEmployee>().HasData(
                 new OfficeEmployee()
                 {
                     Id = 1,
@@ -143,6 +143,15 @@ namespace DBApiTutorial.Infrastructure
                     EmployeeId = 4,
                     OfficeId = 4
                 });
+
+            modelBuilder.Entity<Region>()
+                .HasQueryFilter(x => x.IsDeleted == false);
+            modelBuilder.Entity<Office>()
+                .HasQueryFilter(x => x.IsDeleted == false);
+            modelBuilder.Entity<Employee>()
+                            .HasQueryFilter(x => x.IsDeleted == false);
+            modelBuilder.Entity<OfficeEmployee>()
+                .HasQueryFilter(x => x.IsDeleted == false);
 
         }
     }
