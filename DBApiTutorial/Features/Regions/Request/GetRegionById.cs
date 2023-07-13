@@ -12,13 +12,13 @@ namespace DBApiTutorial.Features.Regions.Request
 {
     public class GetRegionById
     {
-        public class Query : IRequest<ActionResult<RegionDto?>>
+        public class Query : IRequest<ActionResult<RegionDto>>
         {
             public int Id { get; set; } 
         }
 
         
-        public class Handler : IRequestHandler<Query, ActionResult<RegionDto?>>
+        public class Handler : IRequestHandler<Query, ActionResult<RegionDto>>
         {
             private readonly DBContext _context;
             private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace DBApiTutorial.Features.Regions.Request
                _mapper = mapper;
             }
             
-            public async Task<ActionResult<RegionDto?>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<ActionResult<RegionDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var region = await _context.Regions
                     .Where(r => r.Id == request.Id)
