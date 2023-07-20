@@ -7,8 +7,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DBApiTutorial.Features.Regions
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class RegionsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,7 +18,7 @@ namespace DBApiTutorial.Features.Regions
             _mediator = mediator;
         }
 
-        [HttpGet]
+        //[HttpGet]
         public async Task<ActionResult<IEnumerable<RegionDto>>> GetRegions()
         {
             try
@@ -32,7 +32,7 @@ namespace DBApiTutorial.Features.Regions
             }
         }
 
-        [HttpGet("{id}", Name = "regions")]
+        //[HttpGet("{id}", Name = "regions")]
         public async Task<ActionResult<RegionDto>> GetRegion(int id)
         {
             try
@@ -46,7 +46,7 @@ namespace DBApiTutorial.Features.Regions
             }
         }
 
-        [HttpPost]
+        //[HttpPost]
         public async Task<ActionResult<RegionDto>> CreateRegion(
             [FromBody][Required(ErrorMessage = "Provide a Region to create.")] RegionCreateDto region)
         { 
@@ -61,7 +61,7 @@ namespace DBApiTutorial.Features.Regions
             }
         }
 
-        [HttpPut("{id}")]
+        //[HttpPut("{id}")]
         public async Task<ActionResult<RegionDto>> UpdateRegion(int id,
             [FromBody][Required(ErrorMessage = "Provide an updated Region.")] RegionUpdateDto region)
         {
@@ -77,7 +77,7 @@ namespace DBApiTutorial.Features.Regions
             
         }
 
-        [HttpDelete("{id}")]
+        //[HttpDelete("{id}")]
         public async Task<ActionResult<int>> DeleteRegion(int id)
         {
             try

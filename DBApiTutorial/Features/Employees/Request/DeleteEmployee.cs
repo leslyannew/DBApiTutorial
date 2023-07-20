@@ -29,7 +29,7 @@ namespace DBApiTutorial.Features.Employees.Request
                 {
                     throw new ArgumentNullException();
                 }
-                _context.Employees.Remove(employeeEntity);
+                employeeEntity.IsDeleted = true;
                 await _context.SaveChangesAsync();
                 return command.Id;
             }

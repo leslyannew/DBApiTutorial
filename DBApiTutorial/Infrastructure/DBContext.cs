@@ -30,7 +30,16 @@ namespace DBApiTutorial.Infrastructure
                 .WithMany()
                 .UsingEntity<OfficeEmployee>();
 
-            
+            modelBuilder.Entity<Region>()
+                .HasQueryFilter(x => x.IsDeleted == false);
+            modelBuilder.Entity<Office>()
+                .HasQueryFilter(x => x.IsDeleted == false);
+            modelBuilder.Entity<Employee>()
+                            .HasQueryFilter(x => x.IsDeleted == false);
+            modelBuilder.Entity<OfficeEmployee>()
+                .HasQueryFilter(x => x.IsDeleted == false);
+
+
             modelBuilder.Entity<Region>().HasData(
                 new Region()
                 {
@@ -143,16 +152,6 @@ namespace DBApiTutorial.Infrastructure
                     EmployeeId = 4,
                     OfficeId = 4
                 });
-
-            modelBuilder.Entity<Region>()
-                .HasQueryFilter(x => x.IsDeleted == false);
-            modelBuilder.Entity<Office>()
-                .HasQueryFilter(x => x.IsDeleted == false);
-            modelBuilder.Entity<Employee>()
-                            .HasQueryFilter(x => x.IsDeleted == false);
-            modelBuilder.Entity<OfficeEmployee>()
-                .HasQueryFilter(x => x.IsDeleted == false);
-
         }
     }
 }

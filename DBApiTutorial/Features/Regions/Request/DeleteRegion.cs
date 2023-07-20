@@ -31,12 +31,20 @@ namespace DBApiTutorial.Features.Regions.Request
             {
                 var regionEntity = await _context.Regions
                     .Where(r => r.Id == command.Id)
+                    .IgnoreQueryFilters()
                     .FirstOrDefaultAsync();
                 if (regionEntity == null)
                 {
                     throw new ArgumentNullException();
                 }
-                _context.Regions.Remove(regionEntity);
+                if (!regionEntity.IsDeleted)
+                {
+                    regionEntity.IsDeleted = true;
+                } 
+                else
+                {
+                    regionEntity.IsDeleted = false;
+                }
                 await _context.SaveChangesAsync();
                 return command.Id;
             }

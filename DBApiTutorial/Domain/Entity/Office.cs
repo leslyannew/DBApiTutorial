@@ -10,7 +10,7 @@ namespace DBApiTutorial.Domain.Entity
         [MaxLength(50)]
         public string City { get; set; } = string.Empty;
         
-        [MaxLength(2)]
+        [MaxLength(15)]
         public string State { get; set; } = string.Empty;
 
         [MaxLength(20)]

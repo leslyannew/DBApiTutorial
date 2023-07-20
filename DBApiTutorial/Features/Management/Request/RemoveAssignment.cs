@@ -34,7 +34,7 @@ namespace DBApiTutorial.Features.Employees.Request
                 {
                     throw new ArgumentNullException();
                 }
-                _context.OfficeEmployees.Remove(assignment);
+                assignment.IsDeleted = true;
                 await _context.SaveChangesAsync();
                 return $"Office {command.OfficeId} and Employee {command.EmployeeId}";
             }

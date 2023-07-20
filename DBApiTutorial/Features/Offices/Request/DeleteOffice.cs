@@ -27,7 +27,7 @@ namespace DBApiTutorial.Features.Offices.Request
                 {
                     throw new ArgumentNullException();
                 }
-                _context.Offices.Remove(officeEntity);
+                officeEntity.IsDeleted = true;
                 await _context.SaveChangesAsync();
                 return command.Id;
             }
