@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DBApiTutorial.Domain.Entity
+namespace DBApiTutorial.Domain
 {
     public class Office : BaseEntity
     {
@@ -9,7 +9,7 @@ namespace DBApiTutorial.Domain.Entity
 
         [MaxLength(50)]
         public string City { get; set; } = string.Empty;
-        
+
         [MaxLength(15)]
         public string State { get; set; } = string.Empty;
 

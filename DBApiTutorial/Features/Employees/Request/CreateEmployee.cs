@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DBApiTutorial.Domain.Entity;
+using DBApiTutorial.Domain;
 using DBApiTutorial.Features.Employees.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;

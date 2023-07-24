@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using DBApiTutorial.Domain.Entity;
+using DBApiTutorial.Domain;
 using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Features.Regions.Request;
 using DBApiTutorial.Infrastructure;

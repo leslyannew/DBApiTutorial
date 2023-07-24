@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DBApiTutorial.Domain.Entity
+namespace DBApiTutorial.Domain
 {
     public class Region : BaseEntity
     {

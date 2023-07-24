@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DBApiTutorial.Domain;
 using DBApiTutorial.Features.Offices.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;
@@ -34,7 +35,7 @@ namespace DBApiTutorial.Features.Offices.Request
                     throw new ArgumentNullException();
                 }
 
-                var officeEntity = _mapper.Map<Domain.Entity.Office>(command.Office);
+                var officeEntity = _mapper.Map<Office>(command.Office);
                 await _context.Offices.AddAsync(officeEntity);
                 await _context.SaveChangesAsync();
                 return _mapper.Map<OfficeDto>(officeEntity);

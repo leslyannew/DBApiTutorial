@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DBApiTutorial.Domain.Entity;
+using DBApiTutorial.Domain;
 using DBApiTutorial.Features.Offices.DTO;
 
 namespace DBApiTutorial.Features.Offices
