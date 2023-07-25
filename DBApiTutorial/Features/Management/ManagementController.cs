@@ -1,5 +1,4 @@
-﻿using DBApiTutorial.Domain.Entity;
-using DBApiTutorial.Features.Employees.DTO;
+﻿using DBApiTutorial.Features.Employees.DTO;
 using DBApiTutorial.Features.Employees.Request;
 using DBApiTutorial.Features.OfficeEmployees.Request;
 using DBApiTutorial.Features.Offices.DTO;

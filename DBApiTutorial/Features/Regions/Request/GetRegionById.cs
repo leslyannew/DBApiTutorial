@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using DBApiTutorial.Domain.Entity;
 using DBApiTutorial.Features.Regions.DTO;
 using DBApiTutorial.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections;
 
 namespace DBApiTutorial.Features.Regions.Request
 {
@@ -14,10 +12,10 @@ namespace DBApiTutorial.Features.Regions.Request
     {
         public class Query : IRequest<ActionResult<RegionDto>>
         {
-            public int Id { get; set; } 
+            public int Id { get; set; }
         }
 
-        
+
         public class Handler : IRequestHandler<Query, ActionResult<RegionDto>>
         {
             private readonly DBContext _context;
@@ -25,10 +23,10 @@ namespace DBApiTutorial.Features.Regions.Request
 
             public Handler(DBContext context, IMapper mapper)
             {
-               _context = context;
-               _mapper = mapper;
+                _context = context;
+                _mapper = mapper;
             }
-            
+
             public async Task<ActionResult<RegionDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var region = await _context.Regions
@@ -40,10 +38,10 @@ namespace DBApiTutorial.Features.Regions.Request
                 {
                     throw new ArgumentNullException();
                 }
-                return region;                
+                return region;
             }
         }
-        
+
     }
 
 }
